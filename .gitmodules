@@ -1,0 +1,3 @@
+[submodule "libs/CortexJDK"]
+	path = libs/CortexJDK
+	url = https://github.com/kvg/CortexJDK.git
