@@ -1,0 +1,42 @@
+{# This simple template derives from ``base.html``. See ``base.html`` for
+   more information about template inheritance. #}
+{%- extends "base.html" %}
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block content %}
+    <div class="container">
+        {%- with messages = get_flashed_messages(with_categories=True) %}
+            {%- if messages %}
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ utils.flashed_messages(messages) }}
+                    </div>
+                </div>
+            {%- endif %}
+        {%- endwith %}
+        <div class="page-header">
+            <h1>Selected Kmers</h1>
+        </div>
+        <div class="well">
+            {% for kmer in kmers %}
+                <div>
+                    {{ kmer.oriented_kmer }}
+                    {% for link_key in kmer.backward_links.keys() | sort %}
+                        <a href=/kmers/{{ kmer.backward_links[link_key] }}>{{ link_key }}</a>
+                    {% endfor %}
+                    {% for link_key in kmer.forward_links.keys() | sort %}
+                        <a href=/kmers/{{ kmer.forward_links[link_key] }}>{{ link_key }}</a>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{%- endblock %}
