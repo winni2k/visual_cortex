@@ -4,3 +4,7 @@ verify_ssl = true
 
 [packages]
 Flask = "*"
+attrs = "*"
+Flask-Bootstrap = "*"
+flask-nav = "*"
+Flask-WTF = "*"
