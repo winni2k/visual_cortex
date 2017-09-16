@@ -32,20 +32,41 @@ class Kmer(object):
     oriented_kmer = attr.ib(init=False)
     coverage = attr.ib(init=False)
     _edge_split = attr.ib(init=False)
+    edges = attr.ib(init=False)
     forward_links = attr.ib(default=Factory(dict))
     backward_links = attr.ib(default=Factory(dict))
 
     def __attrs_post_init__(self):
         fields = self.line.strip().split()
         self.canonical_kmer, self.oriented_kmer, self.coverage, self._edge_split = tuple(fields[:4])
-        edges = list(self._edge_split)
-        assert (len(edges) == 8)
-        for index, edge in enumerate(edges):
+        self.edges = list(self._edge_split)
+        assert (len(self.edges) == 8)
+
+
+@attr.s
+class KmerContainer(object):
+    kmers = attr.ib()
+    contig = attr.ib(init=False)
+
+    def __attrs_post_init__(self):
+        assert len(self.kmers) > 0
+
+        self.contig = ''.join(
+            [self.kmers[0].oriented_kmer] + [kmer.oriented_kmer[-1] for kmer in self.kmers[1:]])
+
+    def backward_links(self):
+        edges = dict()
+        for edge in self.kmers[0].edges[:4]:
             if edge != '.':
-                if index < 4:
-                    self.backward_links[edge] = edge + self.oriented_kmer
-                else:
-                    self.forward_links[edge] = self.oriented_kmer + edge
+                edges[edge] = edge + self.contig
+        return edges
+
+    def forward_links(self):
+        edges = dict()
+        for edge in self.kmers[-1].edges[4:]:
+            if edge != '.':
+                edges[edge] = (self.contig + edge).upper()
+        return edges
 
 
 class MyForm(FlaskForm):
@@ -77,4 +98,7 @@ def kmers_show(kmer):
         check_output(['java', '-jar', CORTEXJDK_JAR, 'Print', '--graph', GRAPH, '--record',
                       kmer]).decode())
     kmers = parse_cortexjdk_print(output)
-    return render_template('kmers.html', kmers=kmers)
+    kmer_container = KmerContainer(kmers)
+    return render_template('kmers.html', kmer_container=kmer_container,
+                           backward_links=kmer_container.backward_links(),
+                           forward_links=kmer_container.forward_links())
