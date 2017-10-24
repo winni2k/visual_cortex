@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c6bc6ee76bfa87e5db7cce42d8b0c29d98c2dc9dc55e972e07b2b24f081be9f6"
+            "sha256": "3be60a8c9df0b0fd99687814f4bd49bdc439df57808a495b89de617f69cb5dd5"
         },
         "requires": {},
         "sources": [
@@ -12,11 +12,26 @@
         ]
     },
     "default": {
+        "attrs": {
+            "version": "==17.2.0"
+        },
         "click": {
             "version": "==6.7"
         },
+        "dominate": {
+            "version": "==2.3.1"
+        },
         "flask": {
             "version": "==0.12.2"
+        },
+        "flask-bootstrap": {
+            "version": "==3.3.7.1"
+        },
+        "flask-nav": {
+            "version": "==0.6"
+        },
+        "flask-wtf": {
+            "version": "==0.14.2"
         },
         "itsdangerous": {
             "version": "==0.24"
@@ -27,8 +42,18 @@
         "markupsafe": {
             "version": "==1.0"
         },
+        "pycortex": {
+            "git": "https://github.com/winni2k/pycortex.git",
+            "ref": "0.0.3"
+        },
+        "visitor": {
+            "version": "==0.1.3"
+        },
         "werkzeug": {
             "version": "==0.12.2"
+        },
+        "wtforms": {
+            "version": "==2.1"
         }
     },
     "develop": {}

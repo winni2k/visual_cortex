@@ -8,3 +8,7 @@ attrs = "*"
 Flask-Bootstrap = "*"
 flask-nav = "*"
 Flask-WTF = "*"
+
+[packages.pycortex]
+git = "https://github.com/winni2k/pycortex.git"
+ref = "0.0.3"
