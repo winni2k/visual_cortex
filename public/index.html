@@ -30,17 +30,11 @@
 <body>
 <div id="cy"></div>
 <script>
-    // google.charts.load('current', {'packages': ['corechart']})
     $(document).ready(function () {
-        $.getJSON("graph.json", function (data) {
-            console.log(data);
-            draw_graph(data);
+        $.getJSON("graph.json", function (graph_json) {
+            draw_graph(graph_json);
         })
 
-        //google.charts.setOnLoadCallback(
-//            function () {
-//            }
-//        );
     });
 
     function extract_cy_elements(json_data) {
@@ -94,7 +88,7 @@
                         'border-width': '5px',
                         'width': 'label',
                         'height': '50px',
-                        'padding': '2px'
+                        'padding': '2px',
                     }
                 }, {
                     selector: 'edge',
@@ -121,7 +115,7 @@
         for (var node_idx in elements.nodes) {
             node = json_data.nodes[node_idx];
 
-            cy.$('#'.concat(node.id)).qtip({
+            cy.$('#' + node.id).qtip({
                 content: 'Coverage: '.concat(node.coverage.toString()),
                 position: {
                     my: 'top left',
@@ -136,36 +130,11 @@
                 }
             });
 
-            // drawCoverage(node.id, node.repr.split(''), node.coverage)
+            cy.$('#' + node.id).css({'background-image': 'dummy.svg'})
+            drawCoverageSvg(node.id, node.repr.split(''), node.coverage)
         }
 
     }
-
-    /*
-     function zip(arrays) {
-     return arrays[0].map(function (_, i) {
-     return arrays.map(function (array) {
-     return array[i]
-     })
-     });
-     }
-     function drawCoverage(id, labels, coverage) {
-     var data = google.visualization.arrayToDataTable(zip([labels,coverage]));
-
-     var options = {
-     title: 'Coverage',
-     vAxis: {title: 'Coverage'},
-     isStacked: true
-     };
-
-     console.log(id)
-     var chart = new google.visualization.SteppedAreaChart($('#'.concat(id)));
-
-     chart.draw(data, options);
-     }
-     */
-
-
 </script>
 
 </body>
