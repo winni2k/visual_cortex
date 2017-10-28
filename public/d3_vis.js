@@ -55,8 +55,19 @@ d3.json("graph.json", graph => {
             'stroke-width': 2
         })
 
-    var node = svg.append('g')
+    let nodes = {}
+    for (let n of graph.nodes) {
+        nodes[n.id] = n
+    }
+
+    let node_container = svg.append('g')
         .attr('class', 'nodes')
+        .call(d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended))
+
+    var node = node_container
         .selectAll('.node')
         .data(graph.nodes)
         .enter()
@@ -66,10 +77,6 @@ d3.json("graph.json", graph => {
             width: n => node_width(n) + 2 * node_padding,
             height: get_node_height,
         })
-        .call(d3.drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended))
 
     node
         .append('text')
@@ -106,7 +113,6 @@ d3.json("graph.json", graph => {
             y2: d => d.target.y,
         })
 
-        //node.attrs({cx: d => d.x, cy: d => d.y})
         node.attr("transform", d => `translate(${d.x},${d.y})`)
     }
 
@@ -125,7 +131,7 @@ d3.json("graph.json", graph => {
         let width = node_width(node_data)
         let chart = bb.generate({
             data: {
-                type: "step",
+                type: "line",
                 columns: [
                     ['Coverage'].concat(node_data.coverage)
                 ],
