@@ -1,0 +1,1 @@
+{"directed": true, "multigraph": false, "graph": {}, "nodes": [{"coverage": [1], "id": "AAA"}, {"coverage": [1], "id": "AAC"}, {"coverage": [2], "id": "ACG"}, {"is_missing": true, "id": "CGT"}], "edges": [{"source": "AAA", "target": "AAC"}, {"source": "AAC", "target": "ACG"}, {"source": "ACG", "target": "CGT"}]}
