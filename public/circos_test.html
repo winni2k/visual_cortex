@@ -42,8 +42,8 @@
     let configuration = {
         innerRadius: 250,
         outerRadius: 300,
-        cornerRadius: 10,
-        gap: 0.04, // in radian
+        cornerRadius: 0,
+        gap: 0.00, // in radian
         labels: {
             display: true,
             position: 'center',
@@ -72,7 +72,31 @@
         clickCallback: null
     }
 
+    let coverage_data = [...Array(370).keys()].map(v => ({
+        block_id: 'january',
+        position: v,
+        //end: c_idx * bin_length + bin_length,
+        value: v % 31
+    }))
+    let bla = [
+        {
+            block_id: 'january',
+            position: 0,
+            //end: c_idx * bin_length + bin_length,
+            value: 10
+        },
+        {
+            block_id: 'january',
+            position: 1,
+            //end: c_idx * bin_length + bin_length,
+            value: 20
+        }
+    ]
     instance.layout(layout_data, configuration)
+    instance.line('coverage', coverage_data, {
+        innerRadius: 100,
+        outerRadius: 200
+    })
     instance.render()
 
 </script>

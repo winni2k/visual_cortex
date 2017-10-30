@@ -4,7 +4,7 @@
 var width = $(window).width() - 20,
     height = $(window).height() - 20
 
-var color = d3.scaleOrdinal([d3.schemeCategory20[1], d3.schemeCategory20[15]])
+var color = d3.scaleOrdinal([d3.schemeCategory20[0], d3.schemeCategory20[15]])
     .domain([false, true])
 
 var d3cola = cola.d3adaptor(d3)
@@ -15,6 +15,7 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
 
+let circle_stroke_width = 4
 d3.json("graph.json", function (error, graph) {
 
     // Not sure I'm using explicit node.id for link indexing,
@@ -26,7 +27,6 @@ d3.json("graph.json", function (error, graph) {
                 `node with id ${node.id} is not number ${node_idx} in graph.nodes array`)
         }
     }
-
     graph.nodes.forEach(n => n.radius = node_radius(n))
     graph.nodes.forEach(n => n.height = n.width = 2 * n.radius)
 
@@ -64,20 +64,28 @@ d3.json("graph.json", function (error, graph) {
         .append('g')
         .attr("class", "node")
         .attr('id', n => `node-${n.id}`)
+
     var circos_container = node_container.append('g')
         .attr('id', n => `circos-container-${n.id}`)
     circos_container.append('g')
         .attr('id', n => `circos-${n.id}`)
+
+    var inner_node_circle = node_container.append('circle')
+        .style('fill',n=>color(n.is_missing) )
+        .attr('r', inner_circos_radius)
+
     var node_circle = node_container
         .append("circle")
         .attr('class', 'node-circle')
         .attr("r", n => n.radius)
-        .style("fill", d => color(d.is_missing))
+        .style("stroke", d => color(d.is_missing))
+        .style('stroke-width', circle_stroke_width)
+        .style("fill-opacity", 0)
         .call(d3cola.drag)
     node_circle
         .append("title")
-        .text(d => d.repr)
-    node_container.each(build_circos)
+        .text(d => `${d.repr}; Coverage: ${d.coverage.join(',')}`)
+    node_container.each(d => build_circos(d))
 
 
     d3cola.on("tick", () => {
@@ -103,11 +111,15 @@ d3.json("graph.json", function (error, graph) {
         circos_container.attr('transform', n => `translate(${n.x},${n.y})`)
         node_circle.attr('cx', n => n.x)
         node_circle.attr('cy', n => n.y)
+
+        inner_node_circle.attr('cx', n => n.x)
+        inner_node_circle.attr('cy', n => n.y)
+
     })
 })
 
 function node_radius(node) {
-    return Math.sqrt(node.repr.length) * 5
+    return Math.sqrt(node.repr.length) * 6 + circle_stroke_width
 }
 function isIE() {
     return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null)))
@@ -121,34 +133,40 @@ function build_circos(node) {
         height: node.height,
     })
 
-    let layout_data = [
-        {"len": 31, "color": "#8dd3c7", "label": "January", "id": "january"},
-        {"len": 2, "color": "#ffffb3", "label": "February", "id": "february"},
-        {"len": 31, "color": "#bebada", "label": "March", "id": "march"},
-        {"len": 30, "color": "#fb8072", "label": "April", "id": "april"},
-        {"len": 31, "color": "#80b1d3", "label": "May", "id": "may"},
-        {"len": 30, "color": "#fdb462", "label": "June", "id": "june"},
-        {"len": 31, "color": "#b3de69", "label": "July", "id": "july"},
-        {"len": 31, "color": "#fccde5", "label": "August", "id": "august"},
-        {"len": 30, "color": "#d9d9d9", "label": "September", "id": "september"},
-        {"len": 31, "color": "#bc80bd", "label": "October", "id": "october"},
-        {"len": 30, "color": "#ccebc5", "label": "November", "id": "november"},
-        {"len": 31, "color": "#ffed6f", "label": "December", "id": "december"}
-    ]
+    let layout_data = [{id: 'coverage-label', len: node.coverage.length}]
+//     let layout_data = node.coverage.map((c, c_idx) => ({
+//         id: `coverage-${c_idx}`,
+//         len: 1,
+// //        label: node.repr[c_idx]
+//     }))
+
+    //let bin_length = Math.PI * node.radius ** 2 / node.coverage.length
+    let coverage_data = node.coverage.map((c, c_idx) => ({
+        block_id: 'coverage-label',
+        position: c_idx,
+        //end: c_idx * bin_length + bin_length,
+        value: c
+    }))
+    // let coverage_data = [...Array(30).keys()].map(v => ({
+    //     block_id: 'coverage-label',
+    //     position: v,
+    //     //end: c_idx * bin_length + bin_length,
+    //     value: v % 31
+    // }))
     let configuration = {
-        innerRadius: 1,
-        outerRadius: node.radius - 2,
-        cornerRadius: 10,
-        gap: 0.04, // in radian
+        innerRadius: node.radius,
+        outerRadius: node.radius,
+        cornerRadius: 0,
+        gap: 0, // in radian
         labels: {
             display: true,
             position: 'center',
-            size: '14px',
+            size: '10px',
             color: '#000000',
             radialOffset: 20,
         },
         ticks: {
-            display: true,
+            display: false,
             color: 'grey',
             spacing: 10000000,
             labels: true,
@@ -168,8 +186,22 @@ function build_circos(node) {
         clickCallback: null
     }
 
+    let node_max = Math.max(node.coverage.reduce((max, val) => Math.max(max, val), 0), 2)
+
     circos.layout(layout_data, configuration)
-    circos.render()
+        .line('coverage', coverage_data, {
+            innerRadius: inner_circos_radius(node),
+            outerRadius: node.radius-circle_stroke_width,
+            min: 0,
+            max: node_max,
+            color: 'black',
+            axes: [
+                {
+                    spacing: 10
+                }
+            ]
+        })
+        .render()
 
     // delete pesky transform of circos plot
     let container = $(container_id)
@@ -179,4 +211,8 @@ function build_circos(node) {
         .replace(/\s/g, '')
         .match(/([\d.]+),([\d.]+)/)
     container.attr('transform', `translate(${-match[1]},${-match[2]})`)
+}
+
+function inner_circos_radius(node){
+    return node.radius / 3
 }
