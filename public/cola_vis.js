@@ -55,6 +55,7 @@ d3.json("graph.json", function (error, graph) {
         .data(graph.edges)
         .enter().append('svg:path')
         .attr('class', 'link')
+        .attr('stroke', l => color(l.is_missing))
 
     const node_container = svg.append('g')
         .attr('class', 'nodes')
