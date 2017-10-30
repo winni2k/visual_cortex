@@ -1,27 +1,27 @@
 /**
  * Created by winni on 10/29/17.
  */
-var width = $(window).width() - 20,
+const width = $(window).width() - 20,
     height = $(window).height() - 20
 
-var color = d3.scaleOrdinal([d3.schemeCategory20[0], d3.schemeCategory20[15]])
+const color = d3.scaleOrdinal([d3.schemeCategory20[0], d3.schemeCategory20[15]])
     .domain([false, true])
 
-var d3cola = cola.d3adaptor(d3)
+const d3cola = cola.d3adaptor(d3)
     .avoidOverlaps(true)
     .size([width, height])
 
-var svg = d3.select("body").append("svg")
+const svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
 
-let circle_stroke_width = 4
+const circle_stroke_width = 4
 d3.json("graph.json", function (error, graph) {
 
     // Not sure I'm using explicit node.id for link indexing,
     // so need to force ids of nodes to match index in node array
-    for (let node_idx in graph.nodes) {
-        let node = graph.nodes[node_idx]
+    for (const node_idx in graph.nodes) {
+        const node = graph.nodes[node_idx]
         if (+node_idx !== +node.id) {
             throw RangeError("graph.node index mismatch\n" +
                 `node with id ${node.id} is not number ${node_idx} in graph.nodes array`)
@@ -49,14 +49,14 @@ d3.json("graph.json", function (error, graph) {
         .attr('d', 'M0,-5L10,0L0,5')
         .attr('fill', '#000')
 
-    var path = svg.append('g')
+    const path = svg.append('g')
         .attr('class', 'paths')
         .selectAll(".link")
         .data(graph.edges)
         .enter().append('svg:path')
         .attr('class', 'link')
 
-    var node_container = svg.append('g')
+    const node_container = svg.append('g')
         .attr('class', 'nodes')
         .selectAll(".node")
         .data(graph.nodes)
@@ -65,16 +65,16 @@ d3.json("graph.json", function (error, graph) {
         .attr("class", "node")
         .attr('id', n => `node-${n.id}`)
 
-    var circos_container = node_container.append('g')
+    const circos_container = node_container.append('g')
         .attr('id', n => `circos-container-${n.id}`)
     circos_container.append('g')
         .attr('id', n => `circos-${n.id}`)
 
-    var inner_node_circle = node_container.append('circle')
-        .style('fill',n=>color(n.is_missing) )
+    const inner_node_circle = node_container.append('circle')
+        .style('fill', n => color(n.is_missing))
         .attr('r', inner_circos_radius)
 
-    var node_circle = node_container
+    const node_circle = node_container
         .append("circle")
         .attr('class', 'node-circle')
         .attr("r", n => n.radius)
@@ -94,7 +94,7 @@ d3.json("graph.json", function (error, graph) {
         })
         // draw directed edges with proper padding from node centers
         path.attr('d', d => {
-            var deltaX = d.target.x - d.source.x,
+            const deltaX = d.target.x - d.source.x,
                 deltaY = d.target.y - d.source.y,
                 dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY),
                 normX = deltaX / dist,
@@ -126,93 +126,50 @@ function isIE() {
 }
 
 function build_circos(node) {
-    let container_id = `#circos-${node.id}`
-    let circos = new Circos({
+    const container_id = `#circos-${node.id}`
+    const circos = new Circos({
         container: container_id,
         width: node.width,
         height: node.height,
     })
 
-    let layout_data = [{id: 'coverage-label', len: node.coverage.length}]
-//     let layout_data = node.coverage.map((c, c_idx) => ({
-//         id: `coverage-${c_idx}`,
-//         len: 1,
-// //        label: node.repr[c_idx]
-//     }))
+    const layout_data = [{id: 'coverage-label', len: node.coverage.length}]
 
-    //let bin_length = Math.PI * node.radius ** 2 / node.coverage.length
-    let coverage_data = node.coverage.map((c, c_idx) => ({
+    const coverage_data = node.coverage.map((c, c_idx) => ({
         block_id: 'coverage-label',
         position: c_idx,
-        //end: c_idx * bin_length + bin_length,
         value: c
     }))
-    // let coverage_data = [...Array(30).keys()].map(v => ({
-    //     block_id: 'coverage-label',
-    //     position: v,
-    //     //end: c_idx * bin_length + bin_length,
-    //     value: v % 31
-    // }))
-    let configuration = {
+    const configuration = {
         innerRadius: node.radius,
         outerRadius: node.radius,
-        cornerRadius: 0,
-        gap: 0, // in radian
-        labels: {
-            display: true,
-            position: 'center',
-            size: '10px',
-            color: '#000000',
-            radialOffset: 20,
-        },
-        ticks: {
-            display: false,
-            color: 'grey',
-            spacing: 10000000,
-            labels: true,
-            labelSpacing: 10,
-            //labelSuffix: 'Mb',
-            labelDenominator: 1000000,
-            labelDisplay0: true,
-            labelSize: '10px',
-            labelColor: '#000000',
-            labelFont: 'default',
-            majorSpacing: 5,
-            size: {
-                minor: 2,
-                major: 5,
-            }
-        },
+        ticks: {display: false,},
         clickCallback: null
     }
 
-    let node_max = Math.max(node.coverage.reduce((max, val) => Math.max(max, val), 0), 2)
+    const node_max = Math.max(node.coverage.reduce((max, val) => Math.max(max, val), 0), 2)
 
     circos.layout(layout_data, configuration)
         .line('coverage', coverage_data, {
             innerRadius: inner_circos_radius(node),
-            outerRadius: node.radius-circle_stroke_width,
+            outerRadius: node.radius - circle_stroke_width,
             min: 0,
             max: node_max,
             color: 'black',
-            axes: [
-                {
-                    spacing: 10
-                }
-            ]
+            axes: [{spacing: 10}]
         })
         .render()
 
-    // delete pesky transform of circos plot
-    let container = $(container_id)
-    let svg = container.children('svg').first()
-    let match = svg.children('.all')
+    // deconste pesky transform of circos plot
+    const container = $(container_id)
+    const svg = container.children('svg').first()
+    const match = svg.children('.all')
         .attr('transform')
         .replace(/\s/g, '')
         .match(/([\d.]+),([\d.]+)/)
     container.attr('transform', `translate(${-match[1]},${-match[2]})`)
 }
 
-function inner_circos_radius(node){
+function inner_circos_radius(node) {
     return node.radius / 3
 }
