@@ -72,7 +72,12 @@ d3.json("graph.json", function (error, graph) {
 
     const inner_node_circle = node_container.append('circle')
         .style('fill', n => color(n.is_missing))
+        .style('fill-opacity', 0.5)
         .attr('r', inner_circos_radius)
+    const inner_node_text = node_container
+        .append('text')
+        .attr('class', 'inner-node-text')
+        .text(n=> n.coverage.length >= 10 ? n.coverage.length : "")
 
     const node_circle = node_container
         .append("circle")
@@ -115,11 +120,14 @@ d3.json("graph.json", function (error, graph) {
         inner_node_circle.attr('cx', n => n.x)
         inner_node_circle.attr('cy', n => n.y)
 
+        inner_node_text.attr('x', n=>n.x)
+        inner_node_text.attr('y', n=>n.y)
+
     })
 })
 
 function node_radius(node) {
-    return Math.sqrt(node.repr.length) * 6 + circle_stroke_width
+    return Math.sqrt(node.coverage.length) * 6 + circle_stroke_width
 }
 function isIE() {
     return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null)))
