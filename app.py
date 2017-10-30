@@ -1,6 +1,8 @@
+import os
 from io import StringIO
 
 import attr
+import pycortex.graph
 from attr import Factory
 from flask import Flask, render_template, redirect
 from flask_bootstrap import Bootstrap
@@ -21,7 +23,7 @@ def create_app():
 app = create_app()
 
 CORTEXJDK_JAR = 'libs/CortexJDK/dist/cortexjdk.jar'
-GRAPH = 'data/test.ctx'
+GRAPH = os.environ.get('CORTEX_GRAPH', 'data/test.ctx')
 app.config.from_object(__name__)
 
 
@@ -89,6 +91,14 @@ def parse_cortexjdk_print(stream):
             continue
         kmers.append(Kmer(line))
     return kmers
+
+
+@app.route('/view/<contig>')
+def contig_show(contig):
+    with open(GRAPH, 'rb') as graph_handle:
+        contig_retriever = pycortex.graph.ContigRetriever(graph_handle)
+        serializer = pycortex.graph.serializer.Serializer(contig_retriever.get_kmer_graph(contig))
+        raise NotImplementedError
 
 
 @app.route('/kmers/<kmer>')
