@@ -72,8 +72,8 @@ d3.json("graph.json", function (error, graph) {
         .attr('id', n => `circos-${n.id}`)
 
     const inner_node_circle = node_container.append('circle')
+        .attr('class', 'inner-node-circle')
         .style('fill', n => color(n.is_missing))
-        .style('fill-opacity', 0.5)
         .attr('r', inner_circos_radius)
     const inner_node_text = node_container
         .append('text')
