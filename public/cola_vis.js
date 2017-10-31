@@ -78,7 +78,7 @@ d3.json("graph.json", function (error, graph) {
     const inner_node_text = node_container
         .append('text')
         .attr('class', 'inner-node-text')
-        .text(n=> n.coverage.length >= 10 ? n.coverage.length : "")
+        .text(n => n.coverage.length >= 10 ? n.coverage.length : "")
 
     const node_circle = node_container
         .append("circle")
@@ -102,7 +102,7 @@ d3.json("graph.json", function (error, graph) {
         path.attr('d', d => {
             const deltaX = d.target.x - d.source.x,
                 deltaY = d.target.y - d.source.y,
-                dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY),
+                dist = Math.hypot(deltaX, deltaY),
                 normX = deltaX / dist,
                 normY = deltaY / dist,
                 sourcePadding = d.source.radius,
@@ -121,8 +121,8 @@ d3.json("graph.json", function (error, graph) {
         inner_node_circle.attr('cx', n => n.x)
         inner_node_circle.attr('cy', n => n.y)
 
-        inner_node_text.attr('x', n=>n.x)
-        inner_node_text.attr('y', n=>n.y)
+        inner_node_text.attr('x', n => n.x)
+        inner_node_text.attr('y', n => n.y)
 
     })
 })
@@ -144,9 +144,11 @@ function build_circos(node) {
 
     const layout_data = [{id: 'coverage-label', len: node.coverage.length}]
 
+
+    const position_adjustment = (node.coverage.length + 1) / node.coverage.length
     const coverage_data = node.coverage.map((c, c_idx) => ({
         block_id: 'coverage-label',
-        position: c_idx,
+        position: c_idx * position_adjustment,
         value: c
     }))
     const configuration = {
@@ -169,7 +171,7 @@ function build_circos(node) {
         })
         .render()
 
-    // deconste pesky transform of circos plot
+    // undo pesky default transform of circos plot
     const container = $(container_id)
     const svg = container.children('svg').first()
     const match = svg.children('.all')

@@ -1,0 +1,3358 @@
+{
+    "directed": true,
+    "edges": [
+        {
+            "is_missing": true,
+            "source": 0,
+            "target": 1
+        },
+        {
+            "is_missing": false,
+            "source": 1,
+            "target": 3
+        },
+        {
+            "is_missing": true,
+            "source": 1,
+            "target": 4
+        },
+        {
+            "is_missing": true,
+            "source": 2,
+            "target": 1
+        },
+        {
+            "is_missing": false,
+            "source": 3,
+            "target": 5
+        },
+        {
+            "is_missing": false,
+            "source": 5,
+            "target": 7
+        },
+        {
+            "is_missing": true,
+            "source": 6,
+            "target": 5
+        },
+        {
+            "is_missing": true,
+            "source": 7,
+            "target": 9
+        },
+        {
+            "is_missing": false,
+            "source": 7,
+            "target": 10
+        },
+        {
+            "is_missing": true,
+            "source": 8,
+            "target": 7
+        },
+        {
+            "is_missing": false,
+            "source": 10,
+            "target": 11
+        },
+        {
+            "is_missing": false,
+            "source": 11,
+            "target": 13
+        },
+        {
+            "is_missing": true,
+            "source": 12,
+            "target": 11
+        },
+        {
+            "is_missing": false,
+            "source": 13,
+            "target": 15
+        },
+        {
+            "is_missing": true,
+            "source": 14,
+            "target": 13
+        },
+        {
+            "is_missing": false,
+            "source": 15,
+            "target": 17
+        },
+        {
+            "is_missing": true,
+            "source": 15,
+            "target": 18
+        },
+        {
+            "is_missing": true,
+            "source": 16,
+            "target": 15
+        },
+        {
+            "is_missing": false,
+            "source": 17,
+            "target": 19
+        },
+        {
+            "is_missing": true,
+            "source": 17,
+            "target": 20
+        },
+        {
+            "is_missing": false,
+            "source": 19,
+            "target": 21
+        },
+        {
+            "is_missing": false,
+            "source": 21,
+            "target": 23
+        },
+        {
+            "is_missing": true,
+            "source": 22,
+            "target": 21
+        },
+        {
+            "is_missing": false,
+            "source": 23,
+            "target": 25
+        },
+        {
+            "is_missing": true,
+            "source": 24,
+            "target": 23
+        },
+        {
+            "is_missing": false,
+            "source": 25,
+            "target": 27
+        },
+        {
+            "is_missing": true,
+            "source": 26,
+            "target": 25
+        },
+        {
+            "is_missing": false,
+            "source": 27,
+            "target": 29
+        },
+        {
+            "is_missing": true,
+            "source": 27,
+            "target": 30
+        },
+        {
+            "is_missing": true,
+            "source": 28,
+            "target": 27
+        },
+        {
+            "is_missing": false,
+            "source": 29,
+            "target": 31
+        },
+        {
+            "is_missing": true,
+            "source": 29,
+            "target": 32
+        },
+        {
+            "is_missing": true,
+            "source": 31,
+            "target": 33
+        },
+        {
+            "is_missing": false,
+            "source": 31,
+            "target": 34
+        },
+        {
+            "is_missing": true,
+            "source": 34,
+            "target": 35
+        },
+        {
+            "is_missing": false,
+            "source": 34,
+            "target": 36
+        },
+        {
+            "is_missing": true,
+            "source": 36,
+            "target": 37
+        },
+        {
+            "is_missing": false,
+            "source": 36,
+            "target": 38
+        },
+        {
+            "is_missing": false,
+            "source": 38,
+            "target": 39
+        },
+        {
+            "is_missing": false,
+            "source": 39,
+            "target": 41
+        },
+        {
+            "is_missing": true,
+            "source": 40,
+            "target": 39
+        },
+        {
+            "is_missing": true,
+            "source": 41,
+            "target": 43
+        },
+        {
+            "is_missing": false,
+            "source": 41,
+            "target": 44
+        },
+        {
+            "is_missing": true,
+            "source": 41,
+            "target": 45
+        },
+        {
+            "is_missing": true,
+            "source": 42,
+            "target": 41
+        },
+        {
+            "is_missing": true,
+            "source": 44,
+            "target": 46
+        },
+        {
+            "is_missing": false,
+            "source": 44,
+            "target": 47
+        },
+        {
+            "is_missing": false,
+            "source": 47,
+            "target": 48
+        },
+        {
+            "is_missing": true,
+            "source": 48,
+            "target": 50
+        },
+        {
+            "is_missing": true,
+            "source": 48,
+            "target": 51
+        },
+        {
+            "is_missing": true,
+            "source": 49,
+            "target": 48
+        }
+    ],
+    "graph": {
+        "name": "()_with_int_labels"
+    },
+    "multigraph": false,
+    "nodes": [
+        {
+            "coverage": [
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ]
+            ],
+            "id": 0,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "AGGTGCTTGTTCTCTTACCCGAGATCTGATCTACATAAGACTGTAAC",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10d98bc50>",
+            "repr": "AGGTGCTTGTTCTCTTACCCGAGATCTGATCTACATAAGACTGTAACTGTCTTGGAGTGCATCAGGGA",
+            "right_node": "AGATCTGATCTACATAAGACTGTAACTGTCTTGGAGTGCATCAGGGA"
+        },
+        {
+            "coverage": [
+                [
+                    61
+                ],
+                [
+                    59
+                ],
+                [
+                    58
+                ],
+                [
+                    58
+                ],
+                [
+                    57
+                ],
+                [
+                    57
+                ],
+                [
+                    57
+                ],
+                [
+                    56
+                ],
+                [
+                    57
+                ],
+                [
+                    58
+                ],
+                [
+                    57
+                ],
+                [
+                    58
+                ],
+                [
+                    60
+                ],
+                [
+                    61
+                ],
+                [
+                    57
+                ],
+                [
+                    57
+                ],
+                [
+                    54
+                ],
+                [
+                    57
+                ]
+            ],
+            "id": 1,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "GATCTGATCTACATAAGACTGTAACTGTCTTGGAGTGCATCAGGGAG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dc8cfd0>",
+            "repr": "GAGGACGAGAATGGTGAG",
+            "right_node": "ACTGTAACTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAG"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 2,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "GGATCTGATCTACATAAGACTGTAACTGTCTTGGAGTGCATCAGGGA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10c41d710>",
+            "repr": "GGATCTGATCTACATAAGACTGTAACTGTCTTGGAGTGCATCAGGGA",
+            "right_node": "GGATCTGATCTACATAAGACTGTAACTGTCTTGGAGTGCATCAGGGA"
+        },
+        {
+            "coverage": [
+                [
+                    54
+                ],
+                [
+                    51
+                ],
+                [
+                    51
+                ],
+                [
+                    50
+                ],
+                [
+                    50
+                ],
+                [
+                    50
+                ]
+            ],
+            "id": 3,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "CTGTAACTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAGG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10c389b70>",
+            "repr": "GGGAAA",
+            "right_node": "ACTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAGGGGAAA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 4,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "CTGTAACTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAGA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dca3978>",
+            "repr": "A",
+            "right_node": "CTGTAACTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAGA"
+        },
+        {
+            "coverage": [
+                [
+                    54
+                ],
+                [
+                    55
+                ],
+                [
+                    59
+                ],
+                [
+                    59
+                ],
+                [
+                    58
+                ],
+                [
+                    57
+                ],
+                [
+                    57
+                ],
+                [
+                    57
+                ],
+                [
+                    57
+                ],
+                [
+                    58
+                ],
+                [
+                    58
+                ],
+                [
+                    58
+                ],
+                [
+                    58
+                ],
+                [
+                    58
+                ],
+                [
+                    58
+                ],
+                [
+                    57
+                ],
+                [
+                    60
+                ],
+                [
+                    60
+                ],
+                [
+                    60
+                ],
+                [
+                    60
+                ],
+                [
+                    59
+                ],
+                [
+                    58
+                ],
+                [
+                    59
+                ],
+                [
+                    58
+                ],
+                [
+                    56
+                ],
+                [
+                    56
+                ],
+                [
+                    56
+                ]
+            ],
+            "id": 5,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "CTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAGGGGAAAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dca37f0>",
+            "repr": "AACCCAGATGAAGAGGATCGAGAACTC",
+            "right_node": "ACGAGAATGGTGAGGGGAAAAACCCAGATGAAGAGGATCGAGAACTC"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 6,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TCTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAGGGGAAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dca3f98>",
+            "repr": "TCTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAGGGGAAA",
+            "right_node": "TCTGTCTTGGAGTGCATCAGGGAGAGGACGAGAATGGTGAGGGGAAA"
+        },
+        {
+            "coverage": [
+                [
+                    64
+                ],
+                [
+                    69
+                ],
+                [
+                    71
+                ],
+                [
+                    68
+                ],
+                [
+                    68
+                ],
+                [
+                    69
+                ],
+                [
+                    69
+                ],
+                [
+                    66
+                ],
+                [
+                    64
+                ],
+                [
+                    62
+                ],
+                [
+                    65
+                ],
+                [
+                    64
+                ],
+                [
+                    68
+                ],
+                [
+                    68
+                ],
+                [
+                    71
+                ],
+                [
+                    72
+                ],
+                [
+                    72
+                ],
+                [
+                    71
+                ],
+                [
+                    71
+                ],
+                [
+                    71
+                ],
+                [
+                    71
+                ],
+                [
+                    73
+                ],
+                [
+                    77
+                ],
+                [
+                    77
+                ],
+                [
+                    77
+                ],
+                [
+                    78
+                ],
+                [
+                    79
+                ],
+                [
+                    79
+                ],
+                [
+                    78
+                ],
+                [
+                    79
+                ],
+                [
+                    82
+                ],
+                [
+                    85
+                ],
+                [
+                    85
+                ],
+                [
+                    85
+                ],
+                [
+                    86
+                ],
+                [
+                    92
+                ],
+                [
+                    91
+                ],
+                [
+                    93
+                ],
+                [
+                    90
+                ],
+                [
+                    85
+                ],
+                [
+                    88
+                ],
+                [
+                    89
+                ],
+                [
+                    87
+                ],
+                [
+                    88
+                ],
+                [
+                    89
+                ],
+                [
+                    88
+                ],
+                [
+                    88
+                ],
+                [
+                    88
+                ],
+                [
+                    90
+                ],
+                [
+                    91
+                ],
+                [
+                    91
+                ],
+                [
+                    91
+                ],
+                [
+                    93
+                ],
+                [
+                    95
+                ],
+                [
+                    92
+                ],
+                [
+                    91
+                ],
+                [
+                    90
+                ],
+                [
+                    88
+                ],
+                [
+                    86
+                ],
+                [
+                    89
+                ],
+                [
+                    90
+                ],
+                [
+                    91
+                ],
+                [
+                    90
+                ],
+                [
+                    90
+                ],
+                [
+                    94
+                ],
+                [
+                    94
+                ],
+                [
+                    93
+                ],
+                [
+                    93
+                ],
+                [
+                    93
+                ],
+                [
+                    92
+                ],
+                [
+                    92
+                ],
+                [
+                    91
+                ],
+                [
+                    91
+                ],
+                [
+                    92
+                ],
+                [
+                    94
+                ],
+                [
+                    92
+                ],
+                [
+                    93
+                ],
+                [
+                    94
+                ],
+                [
+                    95
+                ],
+                [
+                    94
+                ],
+                [
+                    97
+                ],
+                [
+                    94
+                ],
+                [
+                    91
+                ],
+                [
+                    90
+                ],
+                [
+                    91
+                ],
+                [
+                    93
+                ],
+                [
+                    92
+                ],
+                [
+                    93
+                ],
+                [
+                    94
+                ],
+                [
+                    96
+                ],
+                [
+                    91
+                ],
+                [
+                    88
+                ],
+                [
+                    80
+                ],
+                [
+                    83
+                ],
+                [
+                    83
+                ],
+                [
+                    83
+                ],
+                [
+                    82
+                ],
+                [
+                    82
+                ],
+                [
+                    82
+                ],
+                [
+                    85
+                ],
+                [
+                    85
+                ],
+                [
+                    83
+                ],
+                [
+                    84
+                ],
+                [
+                    83
+                ],
+                [
+                    85
+                ],
+                [
+                    83
+                ],
+                [
+                    81
+                ],
+                [
+                    80
+                ],
+                [
+                    81
+                ],
+                [
+                    79
+                ],
+                [
+                    78
+                ],
+                [
+                    76
+                ],
+                [
+                    76
+                ],
+                [
+                    74
+                ],
+                [
+                    75
+                ],
+                [
+                    74
+                ],
+                [
+                    78
+                ],
+                [
+                    76
+                ],
+                [
+                    76
+                ],
+                [
+                    74
+                ],
+                [
+                    71
+                ],
+                [
+                    70
+                ],
+                [
+                    69
+                ],
+                [
+                    68
+                ],
+                [
+                    67
+                ],
+                [
+                    67
+                ],
+                [
+                    66
+                ],
+                [
+                    65
+                ],
+                [
+                    65
+                ],
+                [
+                    66
+                ],
+                [
+                    66
+                ],
+                [
+                    64
+                ],
+                [
+                    63
+                ],
+                [
+                    68
+                ],
+                [
+                    68
+                ],
+                [
+                    73
+                ],
+                [
+                    74
+                ],
+                [
+                    74
+                ],
+                [
+                    74
+                ],
+                [
+                    75
+                ],
+                [
+                    75
+                ],
+                [
+                    75
+                ],
+                [
+                    77
+                ],
+                [
+                    81
+                ],
+                [
+                    78
+                ],
+                [
+                    78
+                ],
+                [
+                    78
+                ],
+                [
+                    78
+                ],
+                [
+                    78
+                ],
+                [
+                    78
+                ],
+                [
+                    78
+                ],
+                [
+                    80
+                ]
+            ],
+            "id": 7,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "CGAGAATGGTGAGGGGAAAAACCCAGATGAAGAGGATCGAGAACTCG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dca3d68>",
+            "repr": "GACCAGCAGGCAGGTTACGTTTTCTAAGCGCAGGAACGGTCTGCTGAAGAAAGCTTACGAGCTGTCGGTGCTCTGCGATGCTGAAGTGGCACTTATTGTTTTCGCCCCCCGAGGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAA",
+            "right_node": "CCCCCGAGGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 8,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TCGAGAATGGTGAGGGGAAAAACCCAGATGAAGAGGATCGAGAACTC",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddcfda0>",
+            "repr": "TCGAGAATGGTGAGGGGAAAAACCCAGATGAAGAGGATCGAGAACTC",
+            "right_node": "TCGAGAATGGTGAGGGGAAAAACCCAGATGAAGAGGATCGAGAACTC"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 9,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "CCCCGAGGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddcfd30>",
+            "repr": "A",
+            "right_node": "CCCCGAGGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAAA"
+        },
+        {
+            "coverage": [
+                [
+                    71
+                ],
+                [
+                    72
+                ],
+                [
+                    72
+                ],
+                [
+                    71
+                ],
+                [
+                    72
+                ],
+                [
+                    74
+                ],
+                [
+                    76
+                ]
+            ],
+            "id": 10,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "CCCCGAGGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAAT",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddcfbe0>",
+            "repr": "TGTTGGA",
+            "right_node": "GGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAATGTTGGA"
+        },
+        {
+            "coverage": [
+                [
+                    82
+                ],
+                [
+                    79
+                ],
+                [
+                    80
+                ],
+                [
+                    79
+                ],
+                [
+                    79
+                ],
+                [
+                    76
+                ],
+                [
+                    75
+                ],
+                [
+                    76
+                ],
+                [
+                    78
+                ],
+                [
+                    80
+                ],
+                [
+                    80
+                ],
+                [
+                    80
+                ],
+                [
+                    80
+                ],
+                [
+                    84
+                ],
+                [
+                    82
+                ],
+                [
+                    83
+                ],
+                [
+                    84
+                ],
+                [
+                    84
+                ],
+                [
+                    84
+                ],
+                [
+                    86
+                ],
+                [
+                    85
+                ],
+                [
+                    86
+                ],
+                [
+                    87
+                ],
+                [
+                    83
+                ],
+                [
+                    82
+                ],
+                [
+                    82
+                ],
+                [
+                    82
+                ]
+            ],
+            "id": 11,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "GGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAATGTTGGAG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddcf7f0>",
+            "repr": "GAGGTATCAAAAGTATTCACAAGAAAG",
+            "right_node": "AGTATGCAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAG"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 12,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAATGTTGGA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddcf0f0>",
+            "repr": "TGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAATGTTGGA",
+            "right_node": "TGGAAGCTCTATGAATTCGCCAATCCCAGTATGCAAAAAATGTTGGA"
+        },
+        {
+            "coverage": [
+                [
+                    136
+                ],
+                [
+                    136
+                ],
+                [
+                    136
+                ],
+                [
+                    134
+                ],
+                [
+                    130
+                ],
+                [
+                    132
+                ]
+            ],
+            "id": 13,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "GTATGCAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAGT",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddcf630>",
+            "repr": "TGACAT",
+            "right_node": "CAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAGTGACAT"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 14,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TGTATGCAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddcf710>",
+            "repr": "TGTATGCAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAG",
+            "right_node": "TGTATGCAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAG"
+        },
+        {
+            "coverage": [
+                [
+                    154
+                ],
+                [
+                    155
+                ],
+                [
+                    155
+                ],
+                [
+                    151
+                ],
+                [
+                    145
+                ],
+                [
+                    143
+                ],
+                [
+                    141
+                ],
+                [
+                    146
+                ],
+                [
+                    146
+                ],
+                [
+                    144
+                ],
+                [
+                    144
+                ],
+                [
+                    144
+                ],
+                [
+                    143
+                ],
+                [
+                    145
+                ],
+                [
+                    146
+                ],
+                [
+                    148
+                ],
+                [
+                    147
+                ],
+                [
+                    143
+                ],
+                [
+                    142
+                ],
+                [
+                    139
+                ],
+                [
+                    141
+                ],
+                [
+                    133
+                ],
+                [
+                    134
+                ],
+                [
+                    131
+                ],
+                [
+                    130
+                ],
+                [
+                    135
+                ],
+                [
+                    134
+                ],
+                [
+                    138
+                ],
+                [
+                    138
+                ],
+                [
+                    135
+                ],
+                [
+                    127
+                ]
+            ],
+            "id": 15,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "AAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAGTGACATA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddcf1d0>",
+            "repr": "AGATAACACTACCAAAGAGCAAGACTATCAG",
+            "right_node": "CACAAGAAAGTGACATAGATAACACTACCAAAGAGCAAGACTATCAG"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 16,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "AAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAGTGACAT",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dda4400>",
+            "repr": "AAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAGTGACAT",
+            "right_node": "AAAAAAATGTTGGAGAGGTATCAAAAGTATTCACAAGAAAGTGACAT"
+        },
+        {
+            "coverage": [
+                [
+                    118
+                ],
+                [
+                    115
+                ],
+                [
+                    114
+                ],
+                [
+                    114
+                ],
+                [
+                    113
+                ],
+                [
+                    113
+                ],
+                [
+                    120
+                ],
+                [
+                    119
+                ],
+                [
+                    119
+                ],
+                [
+                    122
+                ],
+                [
+                    109
+                ],
+                [
+                    107
+                ],
+                [
+                    107
+                ],
+                [
+                    101
+                ],
+                [
+                    97
+                ],
+                [
+                    95
+                ],
+                [
+                    98
+                ],
+                [
+                    100
+                ],
+                [
+                    102
+                ],
+                [
+                    103
+                ],
+                [
+                    102
+                ],
+                [
+                    102
+                ],
+                [
+                    104
+                ],
+                [
+                    108
+                ],
+                [
+                    107
+                ],
+                [
+                    105
+                ],
+                [
+                    103
+                ],
+                [
+                    102
+                ],
+                [
+                    101
+                ],
+                [
+                    98
+                ],
+                [
+                    98
+                ],
+                [
+                    93
+                ],
+                [
+                    98
+                ],
+                [
+                    104
+                ],
+                [
+                    110
+                ],
+                [
+                    106
+                ],
+                [
+                    113
+                ],
+                [
+                    112
+                ],
+                [
+                    105
+                ],
+                [
+                    104
+                ],
+                [
+                    104
+                ],
+                [
+                    103
+                ],
+                [
+                    105
+                ],
+                [
+                    109
+                ],
+                [
+                    117
+                ],
+                [
+                    117
+                ],
+                [
+                    117
+                ],
+                [
+                    117
+                ],
+                [
+                    119
+                ],
+                [
+                    114
+                ],
+                [
+                    112
+                ],
+                [
+                    113
+                ],
+                [
+                    113
+                ],
+                [
+                    119
+                ],
+                [
+                    120
+                ],
+                [
+                    119
+                ],
+                [
+                    110
+                ]
+            ],
+            "id": 17,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "ACAAGAAAGTGACATAGATAACACTACCAAAGAGCAAGACTATCAGC",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dda44e0>",
+            "repr": "CATTTAAAACGAGAAATTGCAAATATGGAAGAGAGAATTAGGATCCTCGAATCAACA",
+            "right_node": "GAGAAATTGCAAATATGGAAGAGAGAATTAGGATCCTCGAATCAACA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 18,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "ACAAGAAAGTGACATAGATAACACTACCAAAGAGCAAGACTATCAGG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd93588>",
+            "repr": "G",
+            "right_node": "ACAAGAAAGTGACATAGATAACACTACCAAAGAGCAAGACTATCAGG"
+        },
+        {
+            "coverage": [
+                [
+                    108
+                ],
+                [
+                    109
+                ],
+                [
+                    110
+                ],
+                [
+                    110
+                ],
+                [
+                    111
+                ],
+                [
+                    109
+                ],
+                [
+                    109
+                ],
+                [
+                    112
+                ],
+                [
+                    112
+                ],
+                [
+                    114
+                ],
+                [
+                    115
+                ],
+                [
+                    113
+                ],
+                [
+                    109
+                ],
+                [
+                    110
+                ],
+                [
+                    108
+                ],
+                [
+                    106
+                ],
+                [
+                    107
+                ],
+                [
+                    106
+                ],
+                [
+                    111
+                ],
+                [
+                    107
+                ]
+            ],
+            "id": 19,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "AGAAATTGCAAATATGGAAGAGAGAATTAGGATCCTCGAATCAACAC",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dca3be0>",
+            "repr": "CAAAGAAAGATGATGGGGGA",
+            "right_node": "GAGAGAATTAGGATCCTCGAATCAACACAAAGAAAGATGATGGGGGA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 20,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "AGAAATTGCAAATATGGAAGAGAGAATTAGGATCCTCGAATCAACAG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddb78d0>",
+            "repr": "G",
+            "right_node": "AGAAATTGCAAATATGGAAGAGAGAATTAGGATCCTCGAATCAACAG"
+        },
+        {
+            "coverage": [
+                [
+                    117
+                ],
+                [
+                    121
+                ],
+                [
+                    121
+                ],
+                [
+                    123
+                ],
+                [
+                    125
+                ],
+                [
+                    133
+                ],
+                [
+                    135
+                ],
+                [
+                    139
+                ],
+                [
+                    139
+                ],
+                [
+                    142
+                ],
+                [
+                    146
+                ],
+                [
+                    146
+                ],
+                [
+                    146
+                ],
+                [
+                    146
+                ]
+            ],
+            "id": 21,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "AGAGAATTAGGATCCTCGAATCAACACAAAGAAAGATGATGGGGGAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddb7048>",
+            "repr": "AGATCTAGCATCAT",
+            "right_node": "CCTCGAATCAACACAAAGAAAGATGATGGGGGAAGATCTAGCATCAT"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 22,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TAGAGAATTAGGATCCTCGAATCAACACAAAGAAAGATGATGGGGGA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd93208>",
+            "repr": "TAGAGAATTAGGATCCTCGAATCAACACAAAGAAAGATGATGGGGGA",
+            "right_node": "TAGAGAATTAGGATCCTCGAATCAACACAAAGAAAGATGATGGGGGA"
+        },
+        {
+            "coverage": [
+                [
+                    160
+                ],
+                [
+                    164
+                ],
+                [
+                    165
+                ],
+                [
+                    168
+                ],
+                [
+                    172
+                ],
+                [
+                    174
+                ],
+                [
+                    173
+                ],
+                [
+                    174
+                ],
+                [
+                    174
+                ],
+                [
+                    174
+                ],
+                [
+                    174
+                ],
+                [
+                    174
+                ],
+                [
+                    174
+                ],
+                [
+                    174
+                ],
+                [
+                    175
+                ],
+                [
+                    175
+                ],
+                [
+                    175
+                ],
+                [
+                    175
+                ],
+                [
+                    177
+                ],
+                [
+                    182
+                ],
+                [
+                    180
+                ],
+                [
+                    179
+                ],
+                [
+                    175
+                ],
+                [
+                    172
+                ],
+                [
+                    172
+                ],
+                [
+                    168
+                ],
+                [
+                    171
+                ],
+                [
+                    186
+                ]
+            ],
+            "id": 23,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "CTCGAATCAACACAAAGAAAGATGATGGGGGAAGATCTAGCATCATG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd933c8>",
+            "repr": "GTTCAGTGAAAGAATTAAATCAGCTAGA",
+            "right_node": "GGGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 24,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TCTCGAATCAACACAAAGAAAGATGATGGGGGAAGATCTAGCATCAT",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dde60f0>",
+            "repr": "TCTCGAATCAACACAAAGAAAGATGATGGGGGAAGATCTAGCATCAT",
+            "right_node": "TCTCGAATCAACACAAAGAAAGATGATGGGGGAAGATCTAGCATCAT"
+        },
+        {
+            "coverage": [
+                [
+                    202
+                ]
+            ],
+            "id": 25,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "GGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dde6048>",
+            "repr": "A",
+            "right_node": "GGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGAA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 26,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TGGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dde61d0>",
+            "repr": "TGGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGA",
+            "right_node": "TGGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGA"
+        },
+        {
+            "coverage": [
+                [
+                    236
+                ],
+                [
+                    235
+                ],
+                [
+                    234
+                ],
+                [
+                    232
+                ],
+                [
+                    230
+                ],
+                [
+                    233
+                ],
+                [
+                    235
+                ],
+                [
+                    239
+                ],
+                [
+                    239
+                ],
+                [
+                    239
+                ],
+                [
+                    243
+                ],
+                [
+                    245
+                ],
+                [
+                    246
+                ]
+            ],
+            "id": 27,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "GGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGAAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dde6ef0>",
+            "repr": "AGCCAAGTTGAAC",
+            "right_node": "ATCATGTTCAGTGAAAGAATTAAATCAGCTAGAAAGCCAAGTTGAAC"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 28,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dde6668>",
+            "repr": "TGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGAA",
+            "right_node": "TGGAAGATCTAGCATCATGTTCAGTGAAAGAATTAAATCAGCTAGAA"
+        },
+        {
+            "coverage": [
+                [
+                    230
+                ],
+                [
+                    231
+                ],
+                [
+                    230
+                ],
+                [
+                    225
+                ],
+                [
+                    222
+                ],
+                [
+                    221
+                ],
+                [
+                    226
+                ],
+                [
+                    229
+                ],
+                [
+                    229
+                ],
+                [
+                    232
+                ],
+                [
+                    230
+                ],
+                [
+                    224
+                ],
+                [
+                    224
+                ],
+                [
+                    222
+                ],
+                [
+                    226
+                ],
+                [
+                    229
+                ],
+                [
+                    236
+                ],
+                [
+                    250
+                ],
+                [
+                    247
+                ],
+                [
+                    245
+                ],
+                [
+                    242
+                ],
+                [
+                    233
+                ],
+                [
+                    231
+                ],
+                [
+                    237
+                ],
+                [
+                    234
+                ],
+                [
+                    234
+                ]
+            ],
+            "id": 29,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "TCATGTTCAGTGAAAGAATTAAATCAGCTAGAAAGCCAAGTTGAACG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dde64a8>",
+            "repr": "GAGGGTTGAACCACATACGAGCACGA",
+            "right_node": "AGCTAGAAAGCCAAGTTGAACGAGGGTTGAACCACATACGAGCACGA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 30,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TCATGTTCAGTGAAAGAATTAAATCAGCTAGAAAGCCAAGTTGAACA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddeeef0>",
+            "repr": "A",
+            "right_node": "TCATGTTCAGTGAAAGAATTAAATCAGCTAGAAAGCCAAGTTGAACA"
+        },
+        {
+            "coverage": [
+                [
+                    227
+                ],
+                [
+                    229
+                ],
+                [
+                    233
+                ],
+                [
+                    230
+                ],
+                [
+                    231
+                ],
+                [
+                    225
+                ],
+                [
+                    222
+                ],
+                [
+                    217
+                ],
+                [
+                    236
+                ],
+                [
+                    236
+                ],
+                [
+                    231
+                ],
+                [
+                    230
+                ],
+                [
+                    227
+                ],
+                [
+                    230
+                ]
+            ],
+            "id": 31,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "GCTAGAAAGCCAAGTTGAACGAGGGTTGAACCACATACGAGCACGAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddeee10>",
+            "repr": "AAGACTAAAGTATT",
+            "right_node": "GTTGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATT"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 32,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "GCTAGAAAGCCAAGTTGAACGAGGGTTGAACCACATACGAGCACGAG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddee0f0>",
+            "repr": "G",
+            "right_node": "GCTAGAAAGCCAAGTTGAACGAGGGTTGAACCACATACGAGCACGAG"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 33,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TTGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddee860>",
+            "repr": "A",
+            "right_node": "TTGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTA"
+        },
+        {
+            "coverage": [
+                [
+                    223
+                ]
+            ],
+            "id": 34,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "TTGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddeea20>",
+            "repr": "G",
+            "right_node": "TTGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTG"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 35,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTGA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddeeda0>",
+            "repr": "A",
+            "right_node": "TGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTGA"
+        },
+        {
+            "coverage": [
+                [
+                    217
+                ]
+            ],
+            "id": 36,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "TGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTGG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddee940>",
+            "repr": "G",
+            "right_node": "TGAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTGG"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 37,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "GAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTGGC",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddeef60>",
+            "repr": "C",
+            "right_node": "GAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTGGC"
+        },
+        {
+            "coverage": [
+                [
+                    209
+                ],
+                [
+                    207
+                ],
+                [
+                    205
+                ],
+                [
+                    204
+                ],
+                [
+                    203
+                ],
+                [
+                    203
+                ],
+                [
+                    207
+                ],
+                [
+                    211
+                ],
+                [
+                    216
+                ],
+                [
+                    217
+                ],
+                [
+                    216
+                ],
+                [
+                    218
+                ],
+                [
+                    220
+                ],
+                [
+                    239
+                ],
+                [
+                    237
+                ]
+            ],
+            "id": 38,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "GAACGAGGGTTGAACCACATACGAGCACGAAAGACTAAAGTATTGGT",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10ddee2b0>",
+            "repr": "TGGATGAAATAGAAC",
+            "right_node": "CCACATACGAGCACGAAAGACTAAAGTATTGGTGGATGAAATAGAAC"
+        },
+        {
+            "coverage": [
+                [
+                    245
+                ],
+                [
+                    243
+                ],
+                [
+                    246
+                ],
+                [
+                    244
+                ],
+                [
+                    246
+                ],
+                [
+                    248
+                ],
+                [
+                    248
+                ],
+                [
+                    247
+                ],
+                [
+                    241
+                ],
+                [
+                    234
+                ],
+                [
+                    221
+                ],
+                [
+                    221
+                ]
+            ],
+            "id": 39,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "CACATACGAGCACGAAAGACTAAAGTATTGGTGGATGAAATAGAACA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd945f8>",
+            "repr": "AACTTAAAAGGA",
+            "right_node": "ACGAAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 40,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TCACATACGAGCACGAAAGACTAAAGTATTGGTGGATGAAATAGAAC",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd947b8>",
+            "repr": "TCACATACGAGCACGAAAGACTAAAGTATTGGTGGATGAAATAGAAC",
+            "right_node": "TCACATACGAGCACGAAAGACTAAAGTATTGGTGGATGAAATAGAAC"
+        },
+        {
+            "coverage": [
+                [
+                    236
+                ],
+                [
+                    239
+                ]
+            ],
+            "id": 41,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "CGAAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd94940>",
+            "repr": "AG",
+            "right_node": "GAAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAG"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 42,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TCGAAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd94438>",
+            "repr": "TCGAAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGA",
+            "right_node": "TCGAAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 43,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "AAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGT",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd94278>",
+            "repr": "T",
+            "right_node": "AAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGT"
+        },
+        {
+            "coverage": [
+                [
+                    42
+                ]
+            ],
+            "id": 44,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "AAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd946a0>",
+            "repr": "G",
+            "right_node": "AAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGG"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 45,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "AAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd943c8>",
+            "repr": "A",
+            "right_node": "AAAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 46,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "AAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGGC",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd940f0>",
+            "repr": "C",
+            "right_node": "AAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGGC"
+        },
+        {
+            "coverage": [
+                [
+                    23
+                ],
+                [
+                    23
+                ],
+                [
+                    24
+                ],
+                [
+                    23
+                ],
+                [
+                    25
+                ],
+                [
+                    25
+                ],
+                [
+                    26
+                ],
+                [
+                    26
+                ],
+                [
+                    26
+                ],
+                [
+                    25
+                ],
+                [
+                    26
+                ],
+                [
+                    25
+                ],
+                [
+                    25
+                ],
+                [
+                    24
+                ],
+                [
+                    24
+                ],
+                [
+                    24
+                ],
+                [
+                    21
+                ],
+                [
+                    20
+                ],
+                [
+                    20
+                ],
+                [
+                    18
+                ],
+                [
+                    17
+                ],
+                [
+                    16
+                ],
+                [
+                    16
+                ],
+                [
+                    16
+                ],
+                [
+                    16
+                ],
+                [
+                    15
+                ],
+                [
+                    15
+                ],
+                [
+                    18
+                ],
+                [
+                    18
+                ],
+                [
+                    20
+                ],
+                [
+                    20
+                ],
+                [
+                    20
+                ],
+                [
+                    20
+                ],
+                [
+                    21
+                ],
+                [
+                    21
+                ],
+                [
+                    22
+                ],
+                [
+                    21
+                ],
+                [
+                    21
+                ],
+                [
+                    22
+                ],
+                [
+                    23
+                ],
+                [
+                    23
+                ],
+                [
+                    23
+                ],
+                [
+                    25
+                ],
+                [
+                    28
+                ],
+                [
+                    28
+                ]
+            ],
+            "id": 47,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "AAGACTAAAGTATTGGTGGATGAAATAGAACAACTTAAAAGGAAGGG",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd948d0>",
+            "repr": "GGCAGGGAACTGCAGCATCATTGTGTTGGAAATGACATCCAAACA",
+            "right_node": "GGGGCAGGGAACTGCAGCATCATTGTGTTGGAAATGACATCCAAACA"
+        },
+        {
+            "coverage": [
+                [
+                    34
+                ],
+                [
+                    33
+                ],
+                [
+                    33
+                ],
+                [
+                    33
+                ],
+                [
+                    33
+                ],
+                [
+                    33
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    31
+                ],
+                [
+                    31
+                ],
+                [
+                    30
+                ],
+                [
+                    28
+                ],
+                [
+                    27
+                ],
+                [
+                    25
+                ],
+                [
+                    25
+                ],
+                [
+                    26
+                ],
+                [
+                    27
+                ],
+                [
+                    29
+                ],
+                [
+                    28
+                ],
+                [
+                    28
+                ],
+                [
+                    27
+                ],
+                [
+                    26
+                ],
+                [
+                    26
+                ],
+                [
+                    27
+                ],
+                [
+                    27
+                ],
+                [
+                    25
+                ],
+                [
+                    25
+                ],
+                [
+                    26
+                ],
+                [
+                    26
+                ],
+                [
+                    27
+                ],
+                [
+                    27
+                ],
+                [
+                    26
+                ],
+                [
+                    28
+                ],
+                [
+                    28
+                ],
+                [
+                    27
+                ],
+                [
+                    27
+                ],
+                [
+                    27
+                ],
+                [
+                    26
+                ],
+                [
+                    26
+                ],
+                [
+                    26
+                ],
+                [
+                    28
+                ],
+                [
+                    25
+                ],
+                [
+                    24
+                ],
+                [
+                    25
+                ],
+                [
+                    28
+                ],
+                [
+                    27
+                ],
+                [
+                    28
+                ],
+                [
+                    29
+                ],
+                [
+                    29
+                ],
+                [
+                    29
+                ],
+                [
+                    28
+                ],
+                [
+                    28
+                ],
+                [
+                    28
+                ],
+                [
+                    28
+                ],
+                [
+                    30
+                ],
+                [
+                    30
+                ],
+                [
+                    30
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    33
+                ],
+                [
+                    34
+                ],
+                [
+                    37
+                ],
+                [
+                    38
+                ],
+                [
+                    40
+                ],
+                [
+                    40
+                ],
+                [
+                    40
+                ],
+                [
+                    39
+                ],
+                [
+                    39
+                ],
+                [
+                    39
+                ],
+                [
+                    39
+                ],
+                [
+                    39
+                ],
+                [
+                    36
+                ],
+                [
+                    35
+                ],
+                [
+                    34
+                ],
+                [
+                    35
+                ],
+                [
+                    34
+                ],
+                [
+                    36
+                ],
+                [
+                    38
+                ],
+                [
+                    36
+                ],
+                [
+                    38
+                ],
+                [
+                    38
+                ],
+                [
+                    39
+                ],
+                [
+                    39
+                ],
+                [
+                    39
+                ],
+                [
+                    38
+                ],
+                [
+                    39
+                ],
+                [
+                    43
+                ],
+                [
+                    45
+                ],
+                [
+                    44
+                ],
+                [
+                    45
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    45
+                ],
+                [
+                    45
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    44
+                ],
+                [
+                    46
+                ],
+                [
+                    45
+                ],
+                [
+                    45
+                ],
+                [
+                    43
+                ],
+                [
+                    42
+                ],
+                [
+                    42
+                ],
+                [
+                    40
+                ],
+                [
+                    41
+                ],
+                [
+                    41
+                ],
+                [
+                    40
+                ],
+                [
+                    39
+                ],
+                [
+                    39
+                ],
+                [
+                    37
+                ],
+                [
+                    37
+                ],
+                [
+                    35
+                ],
+                [
+                    35
+                ],
+                [
+                    34
+                ],
+                [
+                    33
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    32
+                ],
+                [
+                    35
+                ],
+                [
+                    35
+                ],
+                [
+                    35
+                ],
+                [
+                    35
+                ],
+                [
+                    33
+                ],
+                [
+                    33
+                ],
+                [
+                    33
+                ],
+                [
+                    31
+                ],
+                [
+                    31
+                ],
+                [
+                    31
+                ],
+                [
+                    31
+                ],
+                [
+                    29
+                ],
+                [
+                    29
+                ],
+                [
+                    27
+                ],
+                [
+                    26
+                ],
+                [
+                    24
+                ],
+                [
+                    22
+                ],
+                [
+                    21
+                ],
+                [
+                    21
+                ],
+                [
+                    21
+                ],
+                [
+                    22
+                ],
+                [
+                    24
+                ],
+                [
+                    25
+                ],
+                [
+                    24
+                ],
+                [
+                    24
+                ],
+                [
+                    24
+                ],
+                [
+                    23
+                ],
+                [
+                    23
+                ],
+                [
+                    23
+                ],
+                [
+                    22
+                ],
+                [
+                    22
+                ],
+                [
+                    20
+                ],
+                [
+                    20
+                ],
+                [
+                    19
+                ],
+                [
+                    19
+                ],
+                [
+                    19
+                ],
+                [
+                    19
+                ],
+                [
+                    16
+                ],
+                [
+                    14
+                ],
+                [
+                    14
+                ],
+                [
+                    14
+                ],
+                [
+                    13
+                ],
+                [
+                    13
+                ],
+                [
+                    13
+                ],
+                [
+                    12
+                ],
+                [
+                    11
+                ],
+                [
+                    11
+                ],
+                [
+                    11
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    8
+                ],
+                [
+                    8
+                ],
+                [
+                    8
+                ],
+                [
+                    8
+                ],
+                [
+                    8
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    9
+                ],
+                [
+                    8
+                ],
+                [
+                    10
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    12
+                ],
+                [
+                    13
+                ],
+                [
+                    13
+                ],
+                [
+                    13
+                ]
+            ],
+            "id": 48,
+            "is_missing": false,
+            "is_unitig": true,
+            "left_node": "GGGCAGGGAACTGCAGCATCATTGTGTTGGAAATGACATCCAAACAT",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10dd94f60>",
+            "repr": "TCTAACATGCACATGACCAGGTGCCGCAACTAGAAATGTACATGCATAAGGATGCATATGTAGTCAATTATACCTGGTATATGGAGAGAATCCAATACGTTTCAAAGGCATACCCAACCTGTACCTTAATGTATATTGTTCTTGCTATGATAATAAACTAATCTTCCTAAATATTTTGTACTTTTCTCTCCATAATCTCAACAATTGATAAAATATTCAAA",
+            "right_node": "TTTGTACTTTTCTCTCCATAATCTCAACAATTGATAAAATATTCAAA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 49,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TGGGCAGGGAACTGCAGCATCATTGTGTTGGAAATGACATCCAAACA",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10de19da0>",
+            "repr": "TGGGCAGGGAACTGCAGCATCATTGTGTTGGAAATGACATCCAAACA",
+            "right_node": "TGGGCAGGGAACTGCAGCATCATTGTGTTGGAAATGACATCCAAACA"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ]
+            ],
+            "id": 50,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TTGTACTTTTCTCTCCATAATCTCAACAATTGATAAAATATTCAAAT",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10de19d30>",
+            "repr": "T",
+            "right_node": "TTGTACTTTTCTCTCCATAATCTCAACAATTGATAAAATATTCAAAT"
+        },
+        {
+            "coverage": [
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ],
+                [
+                    0
+                ]
+            ],
+            "id": 51,
+            "is_missing": true,
+            "is_unitig": true,
+            "left_node": "TTGTACTTTTCTCTCCATAATCTCAACAATTGATAAAATATTCAAAC",
+            "node_key": "<networkx.classes.digraph.DiGraph object at 0x10de19be0>",
+            "repr": "CGAAAAAAAAAAAAACCTATAGTGAGTCGTATTAATTCTGTGCTCGC",
+            "right_node": "CGAAAAAAAAAAAAACCTATAGTGAGTCGTATTAATTCTGTGCTCGC"
+        }
+    ]
+}
