@@ -4,7 +4,7 @@
 const width = $(window).width() - 20,
     height = $(window).height() - 20
 
-const node_color = d3.scaleOrdinal([d3.schemeCategory20[0], d3.schemeCategory20[15]])
+const node_color = d3.scaleOrdinal(['black', d3.schemeCategory20[15]])
     .domain([false, true])
 
 const d3cola = cola.d3adaptor(d3)
@@ -15,7 +15,8 @@ const svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
 
-const circle_stroke_width = 4
+const circle_stroke_width = 1
+const pie_chart_width = 2
 d3.json("graph.json", function (error, graph) {
 
     graph.graph.color_scale = d3.scaleOrdinal(d3.schemeCategory10)
@@ -87,6 +88,7 @@ d3.json("graph.json", function (error, graph) {
         .attr('class', 'inner-node-circle')
         .attr('id', n => `inner-node-circle-${n.id}`)
         .style('fill', n => node_color(n.is_missing))
+        .attr('opacity', 0)
         .attr('r', inner_circos_radius)
     const inner_node_text = node_container
         .append('text')
@@ -131,7 +133,8 @@ d3.json("graph.json", function (error, graph) {
                 delX = midpointX - sourceX,
                 delY = midpointY - sourceY,
                 color_modulo = d.key % 2,
-                color_band = (Math.floor(d.key / 2) + 1) * 0.5,
+                color_band_factor = 0.7,
+                color_band = (Math.floor(d.key / 2) + 1) * color_band_factor,
                 delBezsX = [delX - delY * color_band, delX + delY * color_band],
                 delBezsY = [delY + delX * color_band, delY - delX * color_band],
                 bezX = delBezsX[color_modulo],
@@ -170,7 +173,6 @@ function build_circos(node, graph) {
 
     const layout_data = [{id: 'coverage-label', len: node.n_kmers}]
 
-
     const position_adjustment = (node.n_kmers + 1) / node.n_kmers
     const coverage_data = node.coverage.map(color_cov =>
         color_cov.map((c, c_idx) => ({
@@ -179,14 +181,14 @@ function build_circos(node, graph) {
             value: c
         })))
 
+    const color_pie_length = node.n_kmers / graph.graph.colors.length
     const color_data = node.color_is_missing.map(
         (is_missing, color_idx) => (
             {
                 block_id: 'coverage-label',
-                start: color_idx,
-                end: color_idx + 1,
-                color: color_idx,
-                is_missing: is_missing,
+                start: color_idx * color_pie_length,
+                end: (color_idx + 1) * color_pie_length,
+                color: is_missing ? 'white' : graph.graph.color_scale(color_idx),
             }
         )
     )
@@ -208,35 +210,27 @@ function build_circos(node, graph) {
     const circos_layout = circos.layout(layout_data, configuration)
     circos_layout.line(`axis-ticks`, coverage_data[0], {
         innerRadius: inner_circos_radius(node),
-        outerRadius: node.radius - circle_stroke_width,
+        outerRadius: node.radius - circle_stroke_width - pie_chart_width,
         min: 0,
         max: node_max,
-        axes: [{spacing: 10}]
+        color: 'black',
+        axes: [{spacing: 10, thickness: 0.1}]
     })
 
     coverage_data.forEach((cov_dat, cov_dat_idx) =>
         circos_layout.line(`coverage-${cov_dat_idx}`, coverage_data[cov_dat_idx], {
             innerRadius: inner_circos_radius(node),
-            outerRadius: node.radius - circle_stroke_width,
+            outerRadius: node.radius - circle_stroke_width - pie_chart_width,
             min: 0,
             max: node_max,
-            color: graph.graph.color_scale(cov_dat_idx),
+            color: d => node.color_is_missing[cov_dat_idx] ? 'white' : graph.graph.color_scale(cov_dat_idx),
         })
     )
-    // add inner circle
-    // circos_layout.highlight('color-indicator', color_data, {
-    //     innerRadius: node.radius,
-    //     outerRadius: node.radius+20,
-    //     color: d => {
-    //         if (d.color_is_missing) {
-    //             return 'black'
-    //         } else {
-    //             return graph.graph.color_scale(d.color)
-    //         }
-    //     },
-    //     opacity: 0.5,
-    // })
-
+    circos_layout.highlight('color-pie-chart', color_data, {
+        innerRadius: node.radius - circle_stroke_width - pie_chart_width,
+        outerRadius: node.radius,
+        color: d => d.color,
+    })
     circos_layout.render()
 
     // undo pesky default transform of circos plot
