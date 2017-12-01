@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3be60a8c9df0b0fd99687814f4bd49bdc439df57808a495b89de617f69cb5dd5"
+            "sha256": "b94c2b6406019a8435f2060987b65ffdbe0a7d84679eb324bc5a1e07b6de5d18"
         },
         "requires": {},
         "sources": [
@@ -13,7 +13,7 @@
     },
     "default": {
         "attrs": {
-            "version": "==17.2.0"
+            "version": "==17.3.0"
         },
         "click": {
             "version": "==6.7"
@@ -37,14 +37,14 @@
             "version": "==0.24"
         },
         "jinja2": {
-            "version": "==2.9.6"
+            "version": "==2.10"
         },
         "markupsafe": {
             "version": "==1.0"
         },
         "pycortex": {
             "git": "https://github.com/winni2k/pycortex.git",
-            "ref": "0.0.3"
+            "ref": "2f7ba1b"
         },
         "visitor": {
             "version": "==0.1.3"

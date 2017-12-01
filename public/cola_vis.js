@@ -4,7 +4,7 @@
 const width = $(window).width() - 20,
     height = $(window).height() - 20
 
-const color = d3.scaleOrdinal([d3.schemeCategory20[0], d3.schemeCategory20[15]])
+const node_color = d3.scaleOrdinal([d3.schemeCategory20[0], d3.schemeCategory20[15]])
     .domain([false, true])
 
 const d3cola = cola.d3adaptor(d3)
@@ -18,6 +18,9 @@ const svg = d3.select("body").append("svg")
 const circle_stroke_width = 4
 d3.json("graph.json", function (error, graph) {
 
+    graph.graph.color_scale = d3.scaleOrdinal(d3.schemeCategory10)
+        .domain([...Array(graph.graph.colors.length).keys()])
+
     // Not sure I'm using explicit node.id for link indexing,
     // so need to force ids of nodes to match index in node array
     for (const node_idx in graph.nodes) {
@@ -27,8 +30,17 @@ d3.json("graph.json", function (error, graph) {
                 `node with id ${node.id} is not number ${node_idx} in graph.nodes array`)
         }
     }
+    graph.nodes.forEach(n => n.coverage = _.zip(...n.coverage))
+    graph.nodes.forEach(n => n.n_kmers = n.coverage[0].length)
     graph.nodes.forEach(n => n.radius = node_radius(n))
     graph.nodes.forEach(n => n.height = n.width = 2 * n.radius)
+    graph.nodes.forEach(n =>
+        n.is_missing = n.coverage.every(color_cov => color_cov.every(val => val === 0)))
+    graph.nodes.forEach(n =>
+        n.color_is_missing = n.coverage.map(color_cov => color_cov.every(val => val === 0)))
+    console.log(graph)
+    //console.log(layoutSummary)
+
 
     d3cola
         .nodes(graph.nodes)
@@ -55,7 +67,7 @@ d3.json("graph.json", function (error, graph) {
         .data(graph.edges)
         .enter().append('svg:path')
         .attr('class', 'link')
-        .attr('stroke', l => color(l.is_missing))
+        .attr('stroke', l => graph.graph.color_scale(l.key))
 
     const node_container = svg.append('g')
         .attr('class', 'nodes')
@@ -73,25 +85,26 @@ d3.json("graph.json", function (error, graph) {
 
     const inner_node_circle = node_container.append('circle')
         .attr('class', 'inner-node-circle')
-        .style('fill', n => color(n.is_missing))
+        .attr('id', n => `inner-node-circle-${n.id}`)
+        .style('fill', n => node_color(n.is_missing))
         .attr('r', inner_circos_radius)
     const inner_node_text = node_container
         .append('text')
         .attr('class', 'inner-node-text')
-        .text(n => n.coverage.length >= 10 ? n.coverage.length : "")
+        .text(n => n.n_kmers >= 10 ? n.n_kmers : "")
 
     const node_circle = node_container
         .append("circle")
         .attr('class', 'node-circle')
         .attr("r", n => n.radius)
-        .style("stroke", d => color(d.is_missing))
+        .style("stroke", n => node_color(n.is_missing))
         .style('stroke-width', circle_stroke_width)
         .style("fill-opacity", 0)
         .call(d3cola.drag)
     node_circle
         .append("title")
-        .text(d => `${d.repr}; Coverage: ${d.coverage.join(',')}`)
-    node_container.each(d => build_circos(d))
+        .text(d => `${d.repr}; Coverage: ${d.coverage.map(c => c.join(',')).join('\n')}`)
+    node_container.each(d => build_circos(d, graph))
 
 
     d3cola.on("tick", () => {
@@ -110,8 +123,21 @@ d3.json("graph.json", function (error, graph) {
                 sourceX = d.source.x + (sourcePadding * normX),
                 sourceY = d.source.y + (sourcePadding * normY),
                 targetX = d.target.x - (targetPadding * normX),
-                targetY = d.target.y - (targetPadding * normY)
-            return `M${sourceX},${sourceY}L${targetX},${targetY}`
+                targetY = d.target.y - (targetPadding * normY),
+                delLineX = targetX - sourceX,
+                delLineY = targetY - sourceY,
+                midpointX = (sourceX + targetX) / 2,
+                midpointY = (sourceY + targetY) / 2,
+                delX = midpointX - sourceX,
+                delY = midpointY - sourceY,
+                color_modulo = d.key % 2,
+                color_band = (Math.floor(d.key / 2) + 1) * 0.5,
+                delBezsX = [delX - delY * color_band, delX + delY * color_band],
+                delBezsY = [delY + delX * color_band, delY - delX * color_band],
+                bezX = delBezsX[color_modulo],
+                bezY = delBezsY[color_modulo]
+
+            return `M${sourceX},${sourceY}q${bezX},${bezY},${delLineX},${delLineY}`
         })
 
         circos_container.attr('transform', n => `translate(${n.x},${n.y})`)
@@ -128,13 +154,13 @@ d3.json("graph.json", function (error, graph) {
 })
 
 function node_radius(node) {
-    return Math.sqrt(node.coverage.length) * 6 + circle_stroke_width
+    return Math.sqrt(node.n_kmers) * 6 + circle_stroke_width
 }
 function isIE() {
     return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null)))
 }
 
-function build_circos(node) {
+function build_circos(node, graph) {
     const container_id = `#circos-${node.id}`
     const circos = new Circos({
         container: container_id,
@@ -142,15 +168,29 @@ function build_circos(node) {
         height: node.height,
     })
 
-    const layout_data = [{id: 'coverage-label', len: node.coverage.length}]
+    const layout_data = [{id: 'coverage-label', len: node.n_kmers}]
 
 
-    const position_adjustment = (node.coverage.length + 1) / node.coverage.length
-    const coverage_data = node.coverage.map((c, c_idx) => ({
-        block_id: 'coverage-label',
-        position: c_idx * position_adjustment,
-        value: c
-    }))
+    const position_adjustment = (node.n_kmers + 1) / node.n_kmers
+    const coverage_data = node.coverage.map(color_cov =>
+        color_cov.map((c, c_idx) => ({
+            block_id: 'coverage-label',
+            position: c_idx * position_adjustment,
+            value: c
+        })))
+
+    const color_data = node.color_is_missing.map(
+        (is_missing, color_idx) => (
+            {
+                block_id: 'coverage-label',
+                start: color_idx,
+                end: color_idx + 1,
+                color: color_idx,
+                is_missing: is_missing,
+            }
+        )
+    )
+
     const configuration = {
         innerRadius: node.radius,
         outerRadius: node.radius,
@@ -158,18 +198,46 @@ function build_circos(node) {
         clickCallback: null
     }
 
-    const node_max = Math.max(node.coverage.reduce((max, val) => Math.max(max, val), 0), 2)
+    const node_max = Math.max(node.coverage.reduce(
+        (max, val) =>
+            val.reduce((max_i, val_i) => Math.max(max_i, val_i), max),
+        0),
+        2)
 
-    circos.layout(layout_data, configuration)
-        .line('coverage', coverage_data, {
+
+    const circos_layout = circos.layout(layout_data, configuration)
+    circos_layout.line(`axis-ticks`, coverage_data[0], {
+        innerRadius: inner_circos_radius(node),
+        outerRadius: node.radius - circle_stroke_width,
+        min: 0,
+        max: node_max,
+        axes: [{spacing: 10}]
+    })
+
+    coverage_data.forEach((cov_dat, cov_dat_idx) =>
+        circos_layout.line(`coverage-${cov_dat_idx}`, coverage_data[cov_dat_idx], {
             innerRadius: inner_circos_radius(node),
             outerRadius: node.radius - circle_stroke_width,
             min: 0,
             max: node_max,
-            color: 'black',
-            axes: [{spacing: 10}]
+            color: graph.graph.color_scale(cov_dat_idx),
         })
-        .render()
+    )
+    // add inner circle
+    // circos_layout.highlight('color-indicator', color_data, {
+    //     innerRadius: node.radius,
+    //     outerRadius: node.radius+20,
+    //     color: d => {
+    //         if (d.color_is_missing) {
+    //             return 'black'
+    //         } else {
+    //             return graph.graph.color_scale(d.color)
+    //         }
+    //     },
+    //     opacity: 0.5,
+    // })
+
+    circos_layout.render()
 
     // undo pesky default transform of circos plot
     const container = $(container_id)
@@ -179,6 +247,8 @@ function build_circos(node) {
         .replace(/\s/g, '')
         .match(/([\d.]+),([\d.]+)/)
     container.attr('transform', `translate(${-match[1]},${-match[2]})`)
+
+
 }
 
 function inner_circos_radius(node) {
