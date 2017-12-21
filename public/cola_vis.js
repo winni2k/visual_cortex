@@ -12,12 +12,13 @@ const d3cola = cola.d3adaptor(d3)
     .size([width, height])
 
 const svg = d3.select("body").append("svg")
-    .attr("width", width)
+    .attr("width", width * 4)
     .attr("height", height)
 
 const circle_stroke_width = 1
 const pie_chart_width = 2
-d3.json("graph.json", function (error, graph) {
+// floor avoids json file caching
+d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph) {
 
     graph.graph.color_scale = d3.scaleOrdinal(d3.schemeCategory10)
         .domain([...Array(graph.graph.colors.length).keys()])
@@ -42,12 +43,33 @@ d3.json("graph.json", function (error, graph) {
     console.log(graph)
     //console.log(layoutSummary)
 
+    const legend = svg.append('g')
+        .attr('class', 'legend')
+        .attr("transform", "translate(50,30)")
+    const box_width = 20
+    const box_height = 15
+    graph.graph.colors.map((color_idx, idx) => {
+            const list_item = legend
+                .append('g')
+                .attr('transform', `translate(0,${idx * (box_height + 2)})`)
+            list_item
+                .append('rect').attr('width', box_width).attr('height', box_height)
+                .attr('fill', graph.graph.color_scale(color_idx))
+                .attr('transform', `translate(0,${-box_height})`)
+            list_item
+                .append('text')
+                .attr('font-size', `${box_height}px`)
+                .attr('transform', `translate(${box_width + 4},-2)`)
+                .text(`${graph.graph.sample_names[idx]}`)
+        }
+    )
+
 
     d3cola
         .nodes(graph.nodes)
         .links(graph.edges)
         .flowLayout("x", l => l.source.radius + l.target.radius + 20)
-        .symmetricDiffLinkLengths(6)
+        .symmetricDiffLinkLengths(1)
         .start(10, 20, 20)
 
     // define arrow markers for graph links
@@ -55,7 +77,7 @@ d3.json("graph.json", function (error, graph) {
         .attr('id', 'end-arrow')
         .attr('viewBox', '0 -5 10 10')
         .attr('refX', 6)
-        .attr('markerWidth', 3)
+        .attr('markerWidth', 2)
         .attr('markerHeight', 3)
         .attr('orient', 'auto')
         .append('svg:path')
@@ -78,6 +100,10 @@ d3.json("graph.json", function (error, graph) {
         .append('g')
         .attr("class", "node")
         .attr('id', n => `node-${n.id}`)
+        .on("click", d => {
+            console.log('clicked')
+            d.fixed = !d.fixed
+        })
 
     const circos_container = node_container.append('g')
         .attr('id', n => `circos-container-${n.id}`)
@@ -88,7 +114,7 @@ d3.json("graph.json", function (error, graph) {
         .attr('class', 'inner-node-circle')
         .attr('id', n => `inner-node-circle-${n.id}`)
         .style('fill', n => node_color(n.is_missing))
-        .attr('opacity', 0)
+        .attr('opacity', 0.5)
         .attr('r', inner_circos_radius)
     const inner_node_text = node_container
         .append('text')
@@ -122,25 +148,15 @@ d3.json("graph.json", function (error, graph) {
                 normY = deltaY / dist,
                 sourcePadding = d.source.radius,
                 targetPadding = d.target.radius + 2,
+                color_band_factor = 2.2,
                 sourceX = d.source.x + (sourcePadding * normX),
                 sourceY = d.source.y + (sourcePadding * normY),
                 targetX = d.target.x - (targetPadding * normX),
                 targetY = d.target.y - (targetPadding * normY),
-                delLineX = targetX - sourceX,
-                delLineY = targetY - sourceY,
-                midpointX = (sourceX + targetX) / 2,
-                midpointY = (sourceY + targetY) / 2,
-                delX = midpointX - sourceX,
-                delY = midpointY - sourceY,
-                color_modulo = d.key % 2,
-                color_band_factor = 0.7,
-                color_band = (Math.floor(d.key / 2) + 1) * color_band_factor,
-                delBezsX = [delX - delY * color_band, delX + delY * color_band],
-                delBezsY = [delY + delX * color_band, delY - delX * color_band],
-                bezX = delBezsX[color_modulo],
-                bezY = delBezsY[color_modulo]
+                sourceYOffset = sourceY + (d.key - graph.graph.colors.length / 2) * color_band_factor,
+                targetYOffset = targetY + (d.key - graph.graph.colors.length / 2) * color_band_factor
 
-            return `M${sourceX},${sourceY}q${bezX},${bezY},${delLineX},${delLineY}`
+            return `M ${sourceX} ${sourceYOffset} L ${targetX} ${targetYOffset}`
         })
 
         circos_container.attr('transform', n => `translate(${n.x},${n.y})`)
