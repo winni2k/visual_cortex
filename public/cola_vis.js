@@ -2,7 +2,9 @@
  * Created by winni on 10/29/17.
  */
 const width = $(window).width() - 20,
-    height = $(window).height() - 20
+    height = $(window).height() - 20,
+    svg_width = width * 4,
+    svg_height = height * 2
 
 const node_color = d3.scaleOrdinal(['black', d3.schemeCategory20[15]])
     .domain([false, true])
@@ -14,8 +16,8 @@ const d3cola = cola.d3adaptor(d3)
 const nav = d3.select(".vc_nav")
 const legend_svg = d3.select('#legend-svg')
 const svg = d3.select("#vc_graph_box").append("svg")
-    .attr("width", width * 4)
-    .attr("height", height * 2)
+    .attr("width", svg_width)
+    .attr("height", svg_height)
 
 const circle_stroke_width = 1
 const pie_chart_width = 2
@@ -35,6 +37,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
                 `node with id ${node.id} is not number ${node_idx} in graph.nodes array`)
         }
     }
+    graph.nodes.forEach(n => n.display = true)
     graph.nodes.forEach(n => n.coverage = _.zip(...n.coverage))
     graph.nodes.forEach(n => n.n_kmers = n.coverage[0].length)
     graph.nodes.forEach(n => n.radius = node_radius(n))
@@ -46,10 +49,12 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     console.log(graph)
     //console.log(layoutSummary)
 
+    const constraints = calculate_constraints(graph)
+
     // legend
     const legend = legend_svg.append('g')
         .attr('class', 'legend')
-        //.attr("transform", "translate(50,30)")
+    //.attr("transform", "translate(50,30)")
     const box_width = 20
     const box_height = 15
     graph.graph.colors.map((color_idx, idx) => {
@@ -73,7 +78,8 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .nodes(graph.nodes)
         .links(graph.edges)
         .flowLayout("x", l => l.source.radius + l.target.radius + 20)
-        .jaccardLinkLengths(150)
+        .constraints(constraints)
+        .jaccardLinkLengths(50)
         .start(10, 20, 20)
 
     // define arrow markers for graph links
@@ -96,7 +102,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .attr('class', 'link')
         .attr('stroke', l => graph.graph.color_scale(l.key))
 
-    const node_container = svg.append('g')
+    const all_node_container = svg.append('g')
         .attr('class', 'nodes')
         .selectAll(".node")
         .data(graph.nodes)
@@ -105,9 +111,11 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .attr("class", "node")
         .attr('id', n => `node-${n.id}`)
         .on("click", d => {
-            console.log('clicked')
+            console.log(`clicked ${d.id}`)
             d.fixed = !d.fixed
+            d3.select(`#node-${d.id}`).select('.node-circle').classed('clicked', d.fixed)
         })
+    const node_container = all_node_container.filter(n => n.display)
 
     const circos_container = node_container.append('g')
         .attr('id', n => `circos-container-${n.id}`)
@@ -129,7 +137,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .append("circle")
         .attr('class', 'node-circle')
         .attr("r", n => n.radius)
-        .style("stroke", n => node_color(n.is_missing))
+        .classed("is_missing", n => n.is_missing)
         .style('stroke-width', circle_stroke_width)
         .style("fill-opacity", 0)
         .call(d3cola.drag)
@@ -268,4 +276,58 @@ function build_circos(node, graph) {
 
 function inner_circos_radius(node) {
     return node.radius / 3
+}
+
+function calculate_constraints(graph) {
+    const pageBounds = {x: 0, y: 0, width: svg_width, height: svg_height},
+        page = svg.append('rect').attr('id', 'page').attr('fill', 'white')
+    console.log(page)
+    for (var key in pageBounds) {
+        page.attr(key, pageBounds[key])
+    }
+
+    const topLeft = {x: pageBounds.x, y: pageBounds.y, fixed: true, display: false},
+        tlIndex = graph.nodes.push(topLeft) - 1,
+        bottomRight = {
+            x: pageBounds.x + pageBounds.width,
+            y: pageBounds.y + pageBounds.height,
+            fixed: true,
+            display: false
+        },
+        brIndex = graph.nodes.push(bottomRight) - 1,
+        constraints = []
+
+    graph.nodes.forEach((node, i) => {
+        if (node.display) {
+            constraints.push({
+                axis: 'x',
+                type: 'separation',
+                left: tlIndex,
+                right: i,
+                gap: node.radius
+            })
+            constraints.push({
+                axis: 'y',
+                type: 'separation',
+                left: tlIndex,
+                right: i,
+                gap: node.radius
+            })
+            constraints.push({
+                axis: 'x',
+                type: 'separation',
+                left: i,
+                right: brIndex,
+                gap: node.radius
+            })
+            constraints.push({
+                axis: 'y',
+                type: 'separation',
+                left: i,
+                right: brIndex,
+                gap: node.radius
+            })
+        }
+    })
+    return constraints
 }
