@@ -11,16 +11,19 @@ const d3cola = cola.d3adaptor(d3)
     .avoidOverlaps(true)
     .size([width, height])
 
-const svg = d3.select("body").append("svg")
+const nav = d3.select(".vc_nav")
+const legend_svg = d3.select('#legend-svg')
+const svg = d3.select("#vc_graph_box").append("svg")
     .attr("width", width * 4)
-    .attr("height", height)
+    .attr("height", height * 2)
 
 const circle_stroke_width = 1
 const pie_chart_width = 2
 // floor avoids json file caching
 d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph) {
 
-    graph.graph.color_scale = d3.scaleOrdinal(d3.schemeCategory10)
+
+    graph.graph.color_scale = d3.scaleOrdinal(d3.schemeCategory20)
         .domain([...Array(graph.graph.colors.length).keys()])
 
     // Not sure I'm using explicit node.id for link indexing,
@@ -43,9 +46,10 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     console.log(graph)
     //console.log(layoutSummary)
 
-    const legend = svg.append('g')
+    // legend
+    const legend = legend_svg.append('g')
         .attr('class', 'legend')
-        .attr("transform", "translate(50,30)")
+        //.attr("transform", "translate(50,30)")
     const box_width = 20
     const box_height = 15
     graph.graph.colors.map((color_idx, idx) => {
@@ -69,7 +73,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .nodes(graph.nodes)
         .links(graph.edges)
         .flowLayout("x", l => l.source.radius + l.target.radius + 20)
-        .symmetricDiffLinkLengths(1)
+        .jaccardLinkLengths(150)
         .start(10, 20, 20)
 
     // define arrow markers for graph links
@@ -175,6 +179,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
 function node_radius(node) {
     return Math.sqrt(node.n_kmers) * 6 + circle_stroke_width
 }
+
 function isIE() {
     return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null)))
 }
