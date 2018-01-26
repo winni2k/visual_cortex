@@ -21,12 +21,40 @@ const svg = d3.select("#vc_graph_box").append("svg")
 
 const circle_stroke_width = 1
 const pie_chart_width = 2
+
 // floor avoids json file caching
 d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph) {
 
 
-    graph.graph.color_scale = d3.scaleOrdinal(d3.schemeCategory20)
+    graph.graph.color_scale = d3.scaleOrdinal(d3.schemeCategory10)
         .domain([...Array(graph.graph.colors.length).keys()])
+
+    // legend
+    const legend = legend_svg.append('g')
+        .attr('class', 'legend')
+        .attr("transform", "translate(0,30)")
+    const box_width = 20
+    const box_height = 15
+    const box_vertical_padding = 2
+    const legend_height = (box_height + box_vertical_padding) * graph.graph.sample_names.length
+    const max_sample_name_length = Math.max(...graph.graph.sample_names.map(name => name.length))
+    legend_svg.attr('height', legend_height + 20).attr('width', `${max_sample_name_length + 5}em`)
+    graph.graph.colors.map((color_idx, idx) => {
+            const list_item = legend
+                .append('g')
+                .attr('transform', `translate(0,${idx * (box_height + box_vertical_padding)})`)
+            list_item
+                .append('rect').attr('width', box_width).attr('height', box_height)
+                .attr('fill', graph.graph.color_scale(color_idx))
+                .attr('transform', `translate(0,${-box_height})`)
+            list_item
+                .append('text')
+                .attr('font-size', `${box_height}px`)
+                .attr('transform', `translate(${box_width + 4},-2)`)
+                .text(`${graph.graph.sample_names[idx]}`)
+        }
+    )
+
 
     // Not sure I'm using explicit node.id for link indexing,
     // so need to force ids of nodes to match index in node array
@@ -46,40 +74,24 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         n.is_missing = n.coverage.every(color_cov => color_cov.every(val => val === 0)))
     graph.nodes.forEach(n =>
         n.color_is_missing = n.coverage.map(color_cov => color_cov.every(val => val === 0)))
-    console.log(graph)
-    //console.log(layoutSummary)
+    graph.edges.forEach(e => e.connection_key = `${e.source}|${e.target}`)
+    const edge_colors = new Map()
+    graph.edges.forEach(e => {
+        if (edge_colors.has(e.connection_key)) {
+            edge_colors.get(e.connection_key).push(e.key)
+        } else {
+            edge_colors.set(e.connection_key, [e.key])
+        }
+    })
 
     const constraints = calculate_constraints(graph)
-
-    // legend
-    const legend = legend_svg.append('g')
-        .attr('class', 'legend')
-    //.attr("transform", "translate(50,30)")
-    const box_width = 20
-    const box_height = 15
-    graph.graph.colors.map((color_idx, idx) => {
-            const list_item = legend
-                .append('g')
-                .attr('transform', `translate(0,${idx * (box_height + 2)})`)
-            list_item
-                .append('rect').attr('width', box_width).attr('height', box_height)
-                .attr('fill', graph.graph.color_scale(color_idx))
-                .attr('transform', `translate(0,${-box_height})`)
-            list_item
-                .append('text')
-                .attr('font-size', `${box_height}px`)
-                .attr('transform', `translate(${box_width + 4},-2)`)
-                .text(`${graph.graph.sample_names[idx]}`)
-        }
-    )
-
 
     d3cola
         .nodes(graph.nodes)
         .links(graph.edges)
         .flowLayout("x", l => l.source.radius + l.target.radius + 20)
         .constraints(constraints)
-        .jaccardLinkLengths(50)
+        .jaccardLinkLengths(70)
         .start(10, 20, 20)
 
     // define arrow markers for graph links
@@ -114,6 +126,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
             console.log(`clicked ${d.id}`)
             d.fixed = !d.fixed
             d3.select(`#node-${d.id}`).select('.node-circle').classed('clicked', d.fixed)
+            copyTextToClipboard(d.repr, '#selection')
         })
     const node_container = all_node_container.filter(n => n.display)
 
@@ -146,7 +159,6 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .text(d => `${d.repr}; Coverage: ${d.coverage.map(c => c.join(',')).join('\n')}`)
     node_container.each(d => build_circos(d, graph))
 
-
     d3cola.on("tick", () => {
         path.each(d => {
             if (isIE()) this.parentNode.insertBefore(this, this)
@@ -160,15 +172,22 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
                 normY = deltaY / dist,
                 sourcePadding = d.source.radius,
                 targetPadding = d.target.radius + 2,
-                color_band_factor = 2.2,
+                color_band_factor = 2,
                 sourceX = d.source.x + (sourcePadding * normX),
                 sourceY = d.source.y + (sourcePadding * normY),
                 targetX = d.target.x - (targetPadding * normX),
                 targetY = d.target.y - (targetPadding * normY),
-                sourceYOffset = sourceY + (d.key - graph.graph.colors.length / 2) * color_band_factor,
-                targetYOffset = targetY + (d.key - graph.graph.colors.length / 2) * color_band_factor
+                rotated = math.multiply([[0, -1], [1, 0]], [normX, normY]),
+                connection_colors = edge_colors.get(d.connection_key),
+                num_edges = connection_colors.length,
+                edge_index = connection_colors.indexOf(d.key),
+                edge_offset = (edge_index - num_edges / 2) * color_band_factor,
+                sourceYOffset = sourceY + rotated[1] * edge_offset,
+                targetYOffset = targetY + rotated[1] * edge_offset,
+                sourceXOffset = sourceX + rotated[0] * edge_offset,
+                targetXOffset = targetX + rotated[0] * edge_offset
 
-            return `M ${sourceX} ${sourceYOffset} L ${targetX} ${targetYOffset}`
+            return `M ${sourceXOffset} ${sourceYOffset} L ${targetXOffset} ${targetYOffset}`
         })
 
         circos_container.attr('transform', n => `translate(${n.x},${n.y})`)
@@ -184,8 +203,13 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     })
 })
 
+$('#simulation-button').click(() => {
+    d3cola.stop()
+    $(this).val('Continue simulation')
+})
+
 function node_radius(node) {
-    return Math.sqrt(node.n_kmers) * 6 + circle_stroke_width
+    return Math.sqrt(Math.max(2, node.n_kmers)) * 6 + circle_stroke_width
 }
 
 function isIE() {
@@ -243,7 +267,7 @@ function build_circos(node, graph) {
         min: 0,
         max: node_max,
         color: 'black',
-        axes: [{spacing: 10, thickness: 0.1}]
+        axes: [{spacing: 10, thickness: 0.5}]
     })
 
     coverage_data.forEach((cov_dat, cov_dat_idx) =>
@@ -331,3 +355,18 @@ function calculate_constraints(graph) {
     })
     return constraints
 }
+
+function copyTextToClipboard(text, element) {
+    const textArea = $(element)
+    textArea.val(text)
+    textArea.select()
+
+    try {
+        const successful = document.execCommand('copy')
+        const msg = successful ? 'successful' : 'unsuccessful'
+        console.log('Copying text command was ' + msg)
+    } catch (err) {
+        console.log('Oops, unable to copy')
+    }
+}
+
