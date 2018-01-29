@@ -22,6 +22,7 @@ const svg = d3.select("#vc_graph_box").append("svg")
 const circle_stroke_width = 1.5
 const link_stroke_width = 4
 const pie_chart_width = 2
+const extra_pie_buffer = 3
 
 // floor avoids json file caching
 d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph) {
@@ -68,6 +69,12 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     }
     graph.nodes.forEach(n => n.display = true)
     graph.nodes.forEach(n => n.coverage = _.zip(...n.coverage))
+    graph.nodes.forEach(n => n.max_coverage = _.reduce(
+        n.coverage,
+        (max_val, list) => _.reduce(list, (memo, num) => Math.max(memo, num), max_val),
+        0
+        )
+    )
     graph.nodes.forEach(n => n.n_kmers = n.coverage[0].length)
     graph.nodes.forEach(n => n.radius = node_radius(n))
     graph.nodes.forEach(n => n.height = n.width = 2 * n.radius)
@@ -92,7 +99,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .links(graph.edges)
         .flowLayout("x", l => l.source.radius + l.target.radius + 20)
         .constraints(constraints)
-        .jaccardLinkLengths(70)
+        .jaccardLinkLengths(130)
         .start(10, 20, 20)
 
     // define arrow markers for graph links
@@ -210,7 +217,7 @@ $('#simulation-button').click(() => {
 })
 
 function node_radius(node) {
-    return Math.sqrt(node.n_kmers) * 10 + circle_stroke_width
+    return inner_circos_radius(node) + circle_stroke_width + extra_pie_buffer + Math.sqrt(node.max_coverage) * 5
 }
 
 function isIE() {
@@ -300,7 +307,7 @@ function build_circos(node, graph) {
 }
 
 function inner_circos_radius(node) {
-    return Math.max(5, node.radius / 3)
+    return 6
 }
 
 function calculate_constraints(graph) {
