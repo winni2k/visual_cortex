@@ -20,7 +20,7 @@ const svg = d3.select("#vc_graph_box").append("svg")
     .attr("height", svg_height)
 
 const circle_stroke_width = 1.5
-const link_stroke_width = 4
+const link_stroke_width = 12
 const pie_chart_width = 2
 const extra_pie_buffer = 3
 
@@ -54,6 +54,18 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
                 .attr('font-size', `${box_height}px`)
                 .attr('transform', `translate(${box_width + 4},-2)`)
                 .text(`${graph.graph.sample_names[idx]}`)
+
+            // define arrow markers for graph links
+            svg.append('svg:defs').append('svg:marker')
+                .attr('id', `end-arrow-color-${color_idx}`)
+                .attr('viewBox', '0 -5 10 10')
+                .attr('refX', 0)
+                .attr('markerWidth', 1)
+                .attr('markerHeight', 1)
+                .attr('orient', 'auto')
+                .append('svg:path')
+                .attr('d', 'M0,-5L10,0L0,5')
+                .attr('fill', graph.graph.color_scale(color_idx))
         }
     )
 
@@ -102,17 +114,6 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .jaccardLinkLengths(130)
         .start(10, 20, 20)
 
-    // define arrow markers for graph links
-    svg.append('svg:defs').append('svg:marker')
-        .attr('id', 'end-arrow')
-        .attr('viewBox', '0 -5 10 10')
-        .attr('refX', 6)
-        .attr('markerWidth', 2)
-        .attr('markerHeight', 3)
-        .attr('orient', 'auto')
-        .append('svg:path')
-        .attr('d', 'M0,-5L10,0L0,5')
-        .attr('fill', '#000')
 
     const path = svg.append('g')
         .attr('class', 'paths')
@@ -122,6 +123,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .attr('class', 'link')
         .attr('stroke', l => graph.graph.color_scale(l.key))
         .attr('stroke-width', link_stroke_width)
+        .attr('style', l => `marker-end: url(#end-arrow-color-${l.key})`)
 
     const all_node_container = svg.append('g')
         .attr('class', 'nodes')
@@ -180,7 +182,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
                 normX = deltaX / dist,
                 normY = deltaY / dist,
                 sourcePadding = d.source.radius,
-                targetPadding = d.target.radius + 2,
+                targetPadding = d.target.radius + link_stroke_width,
                 sourceX = d.source.x + (sourcePadding * normX),
                 sourceY = d.source.y + (sourcePadding * normY),
                 targetX = d.target.x - (targetPadding * normX),
@@ -189,7 +191,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
                 connection_colors = edge_colors.get(d.connection_key),
                 num_edges = connection_colors.length,
                 edge_index = connection_colors.indexOf(d.key),
-                edge_offset = (edge_index - num_edges / 2) * link_stroke_width,
+                edge_offset = (edge_index - (num_edges - 1) / 2) * link_stroke_width,
                 sourceYOffset = sourceY + rotated[1] * edge_offset,
                 targetYOffset = targetY + rotated[1] * edge_offset,
                 sourceXOffset = sourceX + rotated[0] * edge_offset,
