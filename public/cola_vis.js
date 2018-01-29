@@ -21,7 +21,7 @@ const svg = d3.select("#vc_graph_box").append("svg")
 
 const circle_stroke_width = 1.5
 const link_stroke_width = 12
-const pie_chart_width = 2
+const pie_chart_width = 3
 const extra_pie_buffer = 3
 
 // floor avoids json file caching
@@ -271,13 +271,28 @@ function build_circos(node, graph) {
 
 
     const circos_layout = circos.layout(layout_data, configuration)
+    let axes = [
+        {spacing: 10, thickness: 0.5, start: 10},
+        {spacing: 50, thickness: 0.5, start: 50, color: 'black'},
+    ]
+    // workaround for nodes sized 1 kmer
+    if (node.n_kmers === 1) {
+        node.coverage.forEach((covs, cov_idx) => covs[0] === 0 ? null : axes.push({
+            spacing: 1,
+            thickness: 2.5,
+            start: covs[0],
+            end: covs[0] +1,
+            color: graph.graph.color_scale(cov_idx)
+        }))
+    }
+    console.log(axes)
     circos_layout.line(`axis-ticks`, coverage_data[0], {
         innerRadius: inner_circos_radius(node),
         outerRadius: node.radius - circle_stroke_width - pie_chart_width,
         min: 0,
         max: node_max,
         color: 'black',
-        axes: [{spacing: 10, thickness: 0.5}]
+        axes: axes
     })
 
     coverage_data.forEach((cov_dat, cov_dat_idx) =>
