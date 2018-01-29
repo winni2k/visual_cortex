@@ -3,8 +3,8 @@
  */
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
-    svg_width = width * 4,
-    svg_height = height * 2
+    svg_width = width,
+    svg_height = height
 
 const node_color = d3.scaleOrdinal(['black', d3.schemeCategory20[15]])
     .domain([false, true])
@@ -19,7 +19,8 @@ const svg = d3.select("#vc_graph_box").append("svg")
     .attr("width", svg_width)
     .attr("height", svg_height)
 
-const circle_stroke_width = 1
+const circle_stroke_width = 1.5
+const link_stroke_width = 4
 const pie_chart_width = 2
 
 // floor avoids json file caching
@@ -113,6 +114,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .enter().append('svg:path')
         .attr('class', 'link')
         .attr('stroke', l => graph.graph.color_scale(l.key))
+        .attr('stroke-width', link_stroke_width)
 
     const all_node_container = svg.append('g')
         .attr('class', 'nodes')
@@ -126,7 +128,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
             console.log(`clicked ${d.id}`)
             d.fixed = !d.fixed
             d3.select(`#node-${d.id}`).select('.node-circle').classed('clicked', d.fixed)
-            copyTextToClipboard(d.repr, '#selection')
+            copyTextToClipboard(d.unitig, '#selection')
         })
     const node_container = all_node_container.filter(n => n.display)
 
@@ -144,7 +146,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     const inner_node_text = node_container
         .append('text')
         .attr('class', 'inner-node-text')
-        .text(n => n.n_kmers >= 10 ? n.n_kmers : "")
+        .text(n => n.n_kmers)
 
     const node_circle = node_container
         .append("circle")
@@ -172,7 +174,6 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
                 normY = deltaY / dist,
                 sourcePadding = d.source.radius,
                 targetPadding = d.target.radius + 2,
-                color_band_factor = 2,
                 sourceX = d.source.x + (sourcePadding * normX),
                 sourceY = d.source.y + (sourcePadding * normY),
                 targetX = d.target.x - (targetPadding * normX),
@@ -181,7 +182,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
                 connection_colors = edge_colors.get(d.connection_key),
                 num_edges = connection_colors.length,
                 edge_index = connection_colors.indexOf(d.key),
-                edge_offset = (edge_index - num_edges / 2) * color_band_factor,
+                edge_offset = (edge_index - num_edges / 2) * link_stroke_width,
                 sourceYOffset = sourceY + rotated[1] * edge_offset,
                 targetYOffset = targetY + rotated[1] * edge_offset,
                 sourceXOffset = sourceX + rotated[0] * edge_offset,
@@ -209,7 +210,7 @@ $('#simulation-button').click(() => {
 })
 
 function node_radius(node) {
-    return Math.sqrt(Math.max(2, node.n_kmers)) * 6 + circle_stroke_width
+    return Math.sqrt(node.n_kmers) * 10 + circle_stroke_width
 }
 
 function isIE() {
@@ -299,7 +300,7 @@ function build_circos(node, graph) {
 }
 
 function inner_circos_radius(node) {
-    return node.radius / 3
+    return Math.max(5, node.radius / 3)
 }
 
 function calculate_constraints(graph) {
