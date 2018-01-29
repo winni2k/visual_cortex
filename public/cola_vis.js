@@ -285,7 +285,6 @@ function build_circos(node, graph) {
             color: graph.graph.color_scale(cov_idx)
         }))
     }
-    console.log(axes)
     circos_layout.line(`axis-ticks`, coverage_data[0], {
         innerRadius: inner_circos_radius(node),
         outerRadius: node.radius - circle_stroke_width - pie_chart_width,
