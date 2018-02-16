@@ -3,7 +3,7 @@
  */
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
-    svg_width = width,
+    svg_width = width * 2,
     svg_height = height
 
 const node_color = d3.scaleOrdinal(['black', d3.schemeCategory20[15]])
@@ -21,15 +21,21 @@ const svg = d3.select("#vc_graph_box").append("svg")
 
 const circle_stroke_width = 1.5
 const link_stroke_width = 12
-const pie_chart_width = 3
-const extra_pie_buffer = 3
+const pie_chart_width = 9
 
 // floor avoids json file caching
 d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph) {
 
+    graph.graph.color_scale = d3.scaleOrdinal(d3.schemeSet1
+    ).domain([...Array(graph.graph.colors.length).keys()])
 
-    graph.graph.color_scale = d3.scaleOrdinal(d3.schemeCategory10)
-        .domain([...Array(graph.graph.colors.length).keys()])
+    // graph.graph.color_scale = d3.scaleOrdinal(
+    //     d3.schemeGreys[7].slice(1, 7)
+    //         .concat(d3.schemeReds[7].slice(1))
+    //         .concat(d3.schemeBlues[5].slice(1))
+    //         .concat(d3.schemeGreens[3].slice(1))
+    //         .concat(d3.schemePurples[5].slice(1))
+    // ).domain([...Array(graph.graph.colors.length).keys()])
 
     // legend
     const legend = legend_svg.append('g')
@@ -112,7 +118,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .flowLayout("x", l => l.source.radius + l.target.radius + 20)
         .constraints(constraints)
         .jaccardLinkLengths(130)
-        .start(10, 20, 20)
+        .start(20, 20, 20)
 
 
     const path = svg.append('g')
@@ -149,8 +155,9 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     const inner_node_circle = node_container.append('circle')
         .attr('class', 'inner-node-circle')
         .attr('id', n => `inner-node-circle-${n.id}`)
-        .style('fill', n => node_color(n.is_missing))
-        .attr('opacity', 0.5)
+        .style('fill', 'white')
+        .attr('opacity', 1)
+        .attr('stroke', 'black')
         .attr('r', inner_circos_radius)
     const inner_node_text = node_container
         .append('text')
@@ -219,7 +226,7 @@ $('#simulation-button').click(() => {
 })
 
 function node_radius(node) {
-    return inner_circos_radius(node) + circle_stroke_width + extra_pie_buffer + Math.sqrt(node.max_coverage) * 5
+    return inner_circos_radius(node) + circle_stroke_width + pie_chart_width + Math.sqrt(node.max_coverage) * 5
 }
 
 function isIE() {
@@ -281,7 +288,7 @@ function build_circos(node, graph) {
             spacing: 1,
             thickness: 2.5,
             start: covs[0],
-            end: covs[0] +1,
+            end: covs[0] + 1,
             color: graph.graph.color_scale(cov_idx)
         }))
     }
@@ -323,7 +330,7 @@ function build_circos(node, graph) {
 }
 
 function inner_circos_radius(node) {
-    return 6
+    return 12
 }
 
 function calculate_constraints(graph) {
