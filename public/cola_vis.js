@@ -3,11 +3,8 @@
  */
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
-    svg_width = width * 2,
-    svg_height = height
-
-const node_color = d3.scaleOrdinal(['black', d3.schemeCategory20[15]])
-    .domain([false, true])
+    svg_width = width * 4,
+    svg_height = height * 4
 
 const d3cola = cola.d3adaptor(d3)
     .avoidOverlaps(true)
@@ -26,8 +23,19 @@ const pie_chart_width = 9
 // floor avoids json file caching
 d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph) {
 
-    graph.graph.color_scale = d3.scaleOrdinal(d3.schemeSet1
-    ).domain([...Array(graph.graph.colors.length).keys()])
+    // graph.graph.color_scale = d3.scaleOrdinal(d3.schemeDark2).domain([...Array(graph.graph.colors.length).keys()])
+
+    // pair some colors
+    const paired = d3.schemePaired
+    const region_cols = [paired[0], paired[2], paired[6], paired[8], paired[4], "#999999", paired[1], paired[3], paired[5]]
+
+    graph.graph.color_scale = d3.scaleOrdinal(region_cols)
+
+    // colorblind palette
+    // const cbpalette = ["#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"]
+    // graph.graph.color_scale = d3.scaleOrdinal()
+    //     .domain([...Array(graph.graph.colors.length).keys()])
+    //     .range(cbpalette.slice(3, 8).concat(["#000000"]).concat(cbpalette.slice(0, 3)))
 
     // graph.graph.color_scale = d3.scaleOrdinal(
     //     d3.schemeGreys[7].slice(1, 7)
@@ -46,7 +54,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     const box_vertical_padding = 2
     const legend_height = (box_height + box_vertical_padding) * graph.graph.sample_names.length
     const max_sample_name_length = Math.max(...graph.graph.sample_names.map(name => name.length))
-    legend_svg.attr('height', legend_height + 20).attr('width', `${max_sample_name_length + 5}em`)
+    legend_svg.attr('height', legend_height + 20).attr('width', `${0.9 * max_sample_name_length + 5}em`)
     graph.graph.colors.map((color_idx, idx) => {
             const list_item = legend
                 .append('g')
