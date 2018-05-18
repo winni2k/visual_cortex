@@ -7,17 +7,17 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
           crossorigin="anonymous">
 
     <title>Cola.js test</title>
     <style>
         @import url(cola/style.css);
 
-        .text {
+        /*.text {
             font-family: "Times New Roman", Georgia, Serif;
-        }
+        }*/
 
         /* NB: the order of .node-circle, .is_missing, and .clicked is important */
         .node-circle {
@@ -81,7 +81,65 @@
         </div>
         <div class="card">
             <h3 class="card-title">Simulation</h3>
-            <button id="simulation-button" type="button" class="btn btn-primary">Stop simulation</button>
+            <button id="simulation-button" type="button" class="btn btn-primary">Stop simulation
+            </button>
+        </div>
+        <div class="card">
+            <h3 class="card-title">Visualization options</h3>
+            <h4>Line graphs
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active" id="line-graphs-on-label">
+                        <input type="radio" name="options" id="line-graphs-on-input"
+                               autocomplete="off"
+                               checked>
+                        On
+                    </label>
+                    <label class="btn btn-secondary" id="line-graphs-off-label">
+                        <input type="radio" name="options" id="line-graphs-off-input"
+                               autocomplete="off">
+                        Off
+                    </label>
+                </div>
+            </h4>
+            <h4>Node center text
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active" id="center-node-text-n-kmers-label">
+                        <input type="radio" name="options" autocomplete="off" checked>
+                        N kmers
+                    </label>
+                    <label class="btn btn-secondary" id="center-node-text-max-coverage-label">
+                        <input type="radio" name="options" autocomplete="off">
+                        Max coverage
+                    </label>
+                </div>
+            </h4>
+            <h4>Parameters requiring reload</h4>
+            <form>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Scale node area by</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio"
+                                           id="scale-node-area-by-max-coverage"
+                                           name="scale-node-area-by"
+                                           value="max-coverage">
+                                    Max coverage
+                                </label></div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio"
+                                           id="scale-node-area-by-n-kmers"
+                                           name="scale-node-area-by" value="n-kmers">
+                                    N kmers
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Reload</button>
+            </form>
         </div>
     </div>
 
@@ -90,15 +148,14 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>

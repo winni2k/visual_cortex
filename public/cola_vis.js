@@ -1,10 +1,17 @@
 /**
  * Created by winni on 10/29/17.
  */
+
+// set up legend form
+const page_url = new URL(window.location.href)
+const scale_node_by_area = page_url.searchParams.get("scale-node-area-by") || 'max-coverage'
+console.log(scale_node_by_area)
+$(`#scale-node-area-by-${scale_node_by_area}`).prop('checked', true)
+
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
-    svg_width = width * 4,
-    svg_height = height * 4
+    svg_width = width * 2,
+    svg_height = height
 
 const d3cola = cola.d3adaptor(d3)
     .avoidOverlaps(true)
@@ -46,43 +53,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     // ).domain([...Array(graph.graph.colors.length).keys()])
 
     // legend
-    const legend = legend_svg.append('g')
-        .attr('class', 'legend')
-        .attr("transform", "translate(0,30)")
-    const box_width = 20
-    const box_height = 15
-    const box_vertical_padding = 2
-    const legend_height = (box_height + box_vertical_padding) * graph.graph.sample_names.length
-    const max_sample_name_length = Math.max(...graph.graph.sample_names.map(name => name.length))
-    legend_svg.attr('height', legend_height + 20).attr('width', `${0.9 * max_sample_name_length + 5}em`)
-    graph.graph.colors.map((color_idx, idx) => {
-            const list_item = legend
-                .append('g')
-                .attr('transform', `translate(0,${idx * (box_height + box_vertical_padding)})`)
-            list_item
-                .append('rect').attr('width', box_width).attr('height', box_height)
-                .attr('fill', graph.graph.color_scale(color_idx))
-                .attr('transform', `translate(0,${-box_height})`)
-            list_item
-                .append('text')
-                .attr('font-size', `${box_height}px`)
-                .attr('transform', `translate(${box_width + 4},-2)`)
-                .text(`${graph.graph.sample_names[idx]}`)
-
-            // define arrow markers for graph links
-            svg.append('svg:defs').append('svg:marker')
-                .attr('id', `end-arrow-color-${color_idx}`)
-                .attr('viewBox', '0 -5 10 10')
-                .attr('refX', 0)
-                .attr('markerWidth', 1)
-                .attr('markerHeight', 1)
-                .attr('orient', 'auto')
-                .append('svg:path')
-                .attr('d', 'M0,-5L10,0L0,5')
-                .attr('fill', graph.graph.color_scale(color_idx))
-        }
-    )
-
+    build_legend(legend_svg, graph)
 
     // Not sure I'm using explicit node.id for link indexing,
     // so need to force ids of nodes to match index in node array
@@ -102,6 +73,12 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         )
     )
     graph.nodes.forEach(n => n.n_kmers = n.coverage[0].length)
+    if (scale_node_by_area === 'n-kmers') {
+        graph.nodes.forEach(n => n.radius_scale = n.n_kmers)
+    } else {
+        graph.nodes.forEach(n => n.radius_scale = n.max_coverage)
+    }
+
     graph.nodes.forEach(n => n.radius = node_radius(n))
     graph.nodes.forEach(n => n.height = n.width = 2 * n.radius)
     graph.nodes.forEach(n =>
@@ -185,6 +162,39 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .text(d => `${d.repr}; Coverage: ${d.coverage.map(c => c.join(',')).join('\n')}`)
     node_container.each(d => build_circos(d, graph))
 
+
+    function toggle_line_graphs(toggle_on) {
+        let visibility = 'hidden'
+        let new_radius = n => outer_line_graph_radius(n)
+        let new_stroke = 'white'
+        if (toggle_on) {
+            visibility = 'visible'
+            new_radius = inner_circos_radius
+            new_stroke = 'black'
+            inner_node_text.attr('font-size', null)
+        } else {
+            inner_node_text
+                .attr('font-size', n => `${100 * (1 + scaled_radius(n.radius_scale) / inner_circos_radius(n))}%`)
+        }
+
+        for (let i of [...Array(graph.graph.colors.length).keys()]) {
+            $(`.coverage-${i}`).attr('visibility', visibility)
+        }
+        $('.axis-ticks').attr('visibility', visibility)
+        inner_node_circle
+            .attr('r', new_radius)
+            .attr('stroke', new_stroke)
+
+
+    }
+
+    $('#line-graphs-off-label').click(() => toggle_line_graphs(false))
+    $('#line-graphs-on-label').click(() => toggle_line_graphs(true))
+    $('#center-node-text-max-coverage-label').click(() => inner_node_text.text(n => n.max_coverage))
+    $('#center-node-text-n-kmers-label').click(() => inner_node_text.text(n => n.n_kmers))
+
+    //toggle_line_graphs(false)
+
     d3cola.on("tick", () => {
         path.each(d => {
             if (isIE()) this.parentNode.insertBefore(this, this)
@@ -233,8 +243,62 @@ $('#simulation-button').click(() => {
     $(this).val('Continue simulation')
 })
 
+
+function build_legend(legend_svg, graph) {
+    const legend = legend_svg.append('g')
+        .attr('class', 'legend')
+        .attr("transform", "translate(0,30)")
+    const box_width = 20
+    const box_height = 15
+    const box_vertical_padding = 2
+    const legend_height = (box_height + box_vertical_padding) * graph.graph.sample_names.length
+    const legend_width = Math.max(...graph.graph.sample_names.map(name => getTextWidth(name, `${box_height}px verdana`)))
+    legend_svg.attr('height', legend_height + 20).attr('width', legend_width + box_width + 20)
+    graph.graph.colors.map((color_idx, idx) => {
+            const list_item = legend
+                .append('g')
+                .attr('transform', `translate(0,${idx * (box_height + box_vertical_padding)})`)
+            list_item
+                .append('rect').attr('width', box_width).attr('height', box_height)
+                .attr('fill', graph.graph.color_scale(color_idx))
+                .attr('transform', `translate(0,${-box_height})`)
+            list_item
+                .append('text')
+                .attr('font-size', `${box_height}px`)
+                .attr('transform', `translate(${box_width + 4},-2)`)
+                .text(`${graph.graph.sample_names[idx]}`)
+
+            // define arrow markers for graph links
+            svg.append('svg:defs').append('svg:marker')
+                .attr('id', `end-arrow-color-${color_idx}`)
+                .attr('viewBox', '0 -5 10 10')
+                .attr('refX', 0)
+                .attr('markerWidth', 1)
+                .attr('markerHeight', 1)
+                .attr('orient', 'auto')
+                .append('svg:path')
+                .attr('d', 'M0,-5L10,0L0,5')
+                .attr('fill', graph.graph.color_scale(color_idx))
+        }
+    )
+
+
+}
+
 function node_radius(node) {
-    return inner_circos_radius(node) + circle_stroke_width + pie_chart_width + Math.sqrt(node.max_coverage) * 5
+    return outer_circos_radius(node) + circle_stroke_width
+}
+
+function outer_circos_radius(node) {
+    return outer_line_graph_radius(node) + pie_chart_width
+}
+
+function outer_line_graph_radius(node) {
+    return inner_circos_radius(node) + scaled_radius(node.radius_scale)
+}
+
+function scaled_radius(value) {
+    return Math.sqrt(value) * 5
 }
 
 function isIE() {
@@ -327,14 +391,13 @@ function build_circos(node, graph) {
 
     // undo pesky default transform of circos plot
     const container = $(container_id)
+    container.attr('class', 'circos-container')
     const svg = container.children('svg').first()
     const match = svg.children('.all')
         .attr('transform')
         .replace(/\s/g, '')
         .match(/([\d.]+),([\d.]+)/)
     container.attr('transform', `translate(${-match[1]},${-match[2]})`)
-
-
 }
 
 function inner_circos_radius(node) {
@@ -409,3 +472,20 @@ function copyTextToClipboard(text, element) {
     }
 }
 
+
+/**
+ * Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
+ *
+ * @param {String} text The text to be rendered.
+ * @param {String} font The css font descriptor that text is to be rendered with (e.g. "bold 14px verdana").
+ *
+ * @see https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
+ */
+function getTextWidth(text, font) {
+    // re-use canvas object for better performance
+    var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"))
+    var context = canvas.getContext("2d")
+    context.font = font
+    var metrics = context.measureText(text)
+    return metrics.width
+}
