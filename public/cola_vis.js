@@ -5,7 +5,6 @@
 // set up legend form
 const page_url = new URL(window.location.href)
 const scale_node_by_area = page_url.searchParams.get("scale-node-area-by") || 'max-coverage'
-console.log(scale_node_by_area)
 $(`#scale-node-area-by-${scale_node_by_area}`).prop('checked', true)
 
 const width = $(window).width() - 20,
@@ -26,6 +25,8 @@ const svg = d3.select("#vc_graph_box").append("svg")
 const circle_stroke_width = 1.5
 const link_stroke_width = 12
 const pie_chart_width = 9
+const min_line_chart_width = 10
+const node_scaling_factor = 75
 
 // floor avoids json file caching
 d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph) {
@@ -66,15 +67,24 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     }
     graph.nodes.forEach(n => n.display = true)
     graph.nodes.forEach(n => n.coverage = _.zip(...n.coverage))
+    graph.nodes.forEach(n => n.n_kmers = n.coverage[0].length)
     graph.nodes.forEach(n => n.max_coverage = _.reduce(
         n.coverage,
-        (max_val, list) => _.reduce(list, (memo, num) => Math.max(memo, num), max_val),
+        (max_val, row) => _.reduce(row, (row_max, num) => Math.max(row_max, num), max_val),
         0
         )
     )
-    graph.nodes.forEach(n => n.n_kmers = n.coverage[0].length)
+    graph.nodes.forEach(n => n.mean_coverage = _.reduce(
+        n.coverage,
+        (row_sum, row) => Math.max(row_sum, _.reduce(row, (sum, num) => sum + num, 0)),
+        1
+        ) / n.n_kmers
+    )
+
     if (scale_node_by_area === 'n-kmers') {
         graph.nodes.forEach(n => n.radius_scale = n.n_kmers)
+    } else if (scale_node_by_area === 'mean-coverage') {
+        graph.nodes.forEach(n => n.radius_scale = n.mean_coverage)
     } else {
         graph.nodes.forEach(n => n.radius_scale = n.max_coverage)
     }
@@ -162,7 +172,6 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .text(d => `${d.repr}; Coverage: ${d.coverage.map(c => c.join(',')).join('\n')}`)
     node_container.each(d => build_circos(d, graph))
 
-
     function toggle_line_graphs(toggle_on) {
         let visibility = 'hidden'
         let new_radius = n => outer_line_graph_radius(n)
@@ -171,10 +180,9 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
             visibility = 'visible'
             new_radius = inner_circos_radius
             new_stroke = 'black'
-            inner_node_text.attr('font-size', null)
+            set_text_font_size(inner_node_text, scale = false)
         } else {
-            inner_node_text
-                .attr('font-size', n => `${100 * (1 + scaled_radius(n.radius_scale) / inner_circos_radius(n))}%`)
+            set_text_font_size(inner_node_text, scale = true)
         }
 
         for (let i of [...Array(graph.graph.colors.length).keys()]) {
@@ -188,10 +196,15 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
 
     }
 
-    $('#line-graphs-off-label').click(() => toggle_line_graphs(false))
-    $('#line-graphs-on-label').click(() => toggle_line_graphs(true))
-    $('#center-node-text-max-coverage-label').click(() => inner_node_text.text(n => n.max_coverage))
-    $('#center-node-text-n-kmers-label').click(() => inner_node_text.text(n => n.n_kmers))
+    $('#line-graphs-off').click(() => toggle_line_graphs(false))
+    $('#line-graphs-on').click(() => toggle_line_graphs(true))
+    $('#center-node-text-n-kmers').click(() => inner_node_text.text(n => n.n_kmers))
+    $('#center-node-text-max-coverage').click(() => inner_node_text.text(n => n.max_coverage))
+    $('#center-node-text-mean-coverage').click(() => inner_node_text.text(n => Math.round(n.mean_coverage)))
+    $('#scale-center-node-text-on').click(() => set_text_font_size(inner_node_text, scale = true))
+    $('#scale-center-node-text-off').click(() => set_text_font_size(inner_node_text, scale = false,
+        unscaled_font_size = '30px'))
+
 
     //toggle_line_graphs(false)
 
@@ -243,6 +256,13 @@ $('#simulation-button').click(() => {
     $(this).val('Continue simulation')
 })
 
+function set_text_font_size(text, scaled = true, unscaled_font_size = null) {
+    if (scaled) {
+        text.attr('font-size', n => `${100 * (outer_line_graph_radius(n) / inner_circos_radius(n))}%`)
+    } else {
+        text.attr('font-size', unscaled_font_size)
+    }
+}
 
 function build_legend(legend_svg, graph) {
     const legend = legend_svg.append('g')
@@ -285,20 +305,32 @@ function build_legend(legend_svg, graph) {
 
 }
 
-function node_radius(node) {
-    return outer_circos_radius(node) + circle_stroke_width
-}
+// function node_radius(node) {
+//     return outer_circos_radius(node) + circle_stroke_width
+// }
 
 function outer_circos_radius(node) {
-    return outer_line_graph_radius(node) + pie_chart_width
+    return node_radius(node) - circle_stroke_width
+    // outer_line_graph_radius(node) + pie_chart_width
 }
 
 function outer_line_graph_radius(node) {
-    return inner_circos_radius(node) + scaled_radius(node.radius_scale)
+    return outer_circos_radius(node) - pie_chart_width
+    // return inner_circos_radius(node) + scaled_radius(node.radius_scale)
+}
+
+function inner_circos_radius(node) {
+    return 12
+}
+
+function node_radius(node) {
+    return Math.max(scaled_radius(node.radius_scale),
+        circle_stroke_width + pie_chart_width + inner_circos_radius(node) + min_line_chart_width)
+
 }
 
 function scaled_radius(value) {
-    return Math.sqrt(value) * 5
+    return Math.sqrt(value * node_scaling_factor)
 }
 
 function isIE() {
@@ -398,10 +430,6 @@ function build_circos(node, graph) {
         .replace(/\s/g, '')
         .match(/([\d.]+),([\d.]+)/)
     container.attr('transform', `translate(${-match[1]},${-match[2]})`)
-}
-
-function inner_circos_radius(node) {
-    return 12
 }
 
 function calculate_constraints(graph) {
