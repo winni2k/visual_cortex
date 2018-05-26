@@ -10,7 +10,7 @@ $(`#scale-node-area-by-${scale_node_by_area}`).prop('checked', true)
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
     svg_width = width * 2,
-    svg_height = height
+    svg_height = height * 12
 
 const d3cola = cola.d3adaptor(d3)
     .avoidOverlaps(true)
@@ -22,11 +22,15 @@ const svg = d3.select("#vc_graph_box").append("svg")
     .attr("width", svg_width)
     .attr("height", svg_height)
 
-const circle_stroke_width = 1.5
-const link_stroke_width = 12
-const pie_chart_width = 9
+const circle_stroke_width = 10
+const link_stroke_width = 20
+const pie_chart_width = 20
 const min_line_chart_width = 10
 const node_scaling_factor = 75
+function inner_circos_radius(node) {
+    return 36
+}
+
 
 // floor avoids json file caching
 d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph) {
@@ -110,7 +114,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     d3cola
         .nodes(graph.nodes)
         .links(graph.edges)
-        .flowLayout("x", l => l.source.radius + l.target.radius + 20)
+        .flowLayout("y", l => l.source.radius + l.target.radius + 20)
         .constraints(constraints)
         .jaccardLinkLengths(130)
         .start(20, 20, 20)
@@ -201,9 +205,11 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     $('#center-node-text-n-kmers').click(() => inner_node_text.text(n => n.n_kmers))
     $('#center-node-text-max-coverage').click(() => inner_node_text.text(n => n.max_coverage))
     $('#center-node-text-mean-coverage').click(() => inner_node_text.text(n => Math.round(n.mean_coverage)))
+    $('#center-node-text-none').click(() => set_text_font_size(inner_node_text, scale = false,
+        unscaled_font_size = '0px'))
     $('#scale-center-node-text-on').click(() => set_text_font_size(inner_node_text, scale = true))
     $('#scale-center-node-text-off').click(() => set_text_font_size(inner_node_text, scale = false,
-        unscaled_font_size = '30px'))
+        unscaled_font_size = '60px'))
 
 
     //toggle_line_graphs(false)
@@ -319,9 +325,6 @@ function outer_line_graph_radius(node) {
     // return inner_circos_radius(node) + scaled_radius(node.radius_scale)
 }
 
-function inner_circos_radius(node) {
-    return 12
-}
 
 function node_radius(node) {
     return Math.max(scaled_radius(node.radius_scale),
