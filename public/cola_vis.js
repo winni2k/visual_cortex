@@ -9,8 +9,8 @@ $(`#scale-node-area-by-${scale_node_by_area}`).prop('checked', true)
 
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
-    svg_width = width * 2,
-    svg_height = height * 12
+    svg_width = width * 4,
+    svg_height = height * 2
 
 const d3cola = cola.d3adaptor(d3)
     .avoidOverlaps(true)
@@ -22,13 +22,14 @@ const svg = d3.select("#vc_graph_box").append("svg")
     .attr("width", svg_width)
     .attr("height", svg_height)
 
-const circle_stroke_width = 10
-const link_stroke_width = 20
-const pie_chart_width = 20
-const min_line_chart_width = 10
+const circle_stroke_width = 0
+const link_stroke_width = 24
+const pie_chart_width = 24
+const min_line_chart_width = 0
 const node_scaling_factor = 75
+
 function inner_circos_radius(node) {
-    return 36
+    return 0
 }
 
 
@@ -114,9 +115,9 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     d3cola
         .nodes(graph.nodes)
         .links(graph.edges)
-        .flowLayout("y", l => l.source.radius + l.target.radius + 20)
+        .flowLayout("x", l => l.source.radius + l.target.radius + 25)
         .constraints(constraints)
-        .jaccardLinkLengths(130)
+        .jaccardLinkLengths(160)
         .start(20, 20, 20)
 
 
@@ -154,9 +155,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     const inner_node_circle = node_container.append('circle')
         .attr('class', 'inner-node-circle')
         .attr('id', n => `inner-node-circle-${n.id}`)
-        .style('fill', 'white')
         .attr('opacity', 1)
-        .attr('stroke', 'black')
         .attr('r', inner_circos_radius)
     const inner_node_text = node_container
         .append('text')
@@ -327,8 +326,8 @@ function outer_line_graph_radius(node) {
 
 
 function node_radius(node) {
-    return Math.max(scaled_radius(node.radius_scale),
-        circle_stroke_width + pie_chart_width + inner_circos_radius(node) + min_line_chart_width)
+    return circle_stroke_width + pie_chart_width + min_line_chart_width + Math.max(scaled_radius(node.radius_scale),
+        inner_circos_radius(node))
 
 }
 
