@@ -9,8 +9,8 @@ $(`#scale-node-area-by-${scale_node_by_area}`).prop('checked', true)
 
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
-    svg_width = width * 4,
-    svg_height = height * 2
+    svg_width = width * 2,
+    svg_height = height * 6
 
 const d3cola = cola.d3adaptor(d3)
     .avoidOverlaps(true)
@@ -29,7 +29,7 @@ const min_line_chart_width = 0
 const node_scaling_factor = 75
 
 function inner_circos_radius(node) {
-    return 0
+    return 50
 }
 
 
@@ -115,7 +115,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     d3cola
         .nodes(graph.nodes)
         .links(graph.edges)
-        .flowLayout("x", l => l.source.radius + l.target.radius + 25)
+        .flowLayout("y", l => l.source.radius + l.target.radius + 25)
         .constraints(constraints)
         .jaccardLinkLengths(160)
         .start(20, 20, 20)
@@ -326,8 +326,8 @@ function outer_line_graph_radius(node) {
 
 
 function node_radius(node) {
-    return circle_stroke_width + pie_chart_width + min_line_chart_width + Math.max(scaled_radius(node.radius_scale),
-        inner_circos_radius(node))
+    return circle_stroke_width + pie_chart_width + min_line_chart_width + inner_circos_radius(node)
+    // Math.max(scaled_radius(node.radius_scale), inner_circos_radius(node))
 
 }
 
