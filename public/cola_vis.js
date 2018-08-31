@@ -9,8 +9,8 @@ $(`#scale-node-area-by-${scale_node_by_area}`).prop('checked', true)
 
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
-    svg_width = width * 4,
-    svg_height = height * 2
+    svg_width = width * 1,
+    svg_height = height * 1
 
 const d3cola = cola.d3adaptor(d3)
     .avoidOverlaps(true)
@@ -24,7 +24,7 @@ const svg = d3.select("#vc_graph_box").append("svg")
 
 const circle_stroke_width = 0
 const link_stroke_width = 24
-const pie_chart_width = 24
+const pie_chart_width = 10
 const min_line_chart_width = 0
 const node_scaling_factor = 75
 
@@ -40,7 +40,8 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
 
     // pair some colors
     const paired = d3.schemePaired
-    const region_cols = [paired[0], paired[2], paired[6], paired[8], paired[4], "#999999", paired[1], paired[3], paired[5]]
+    const region_cols = ["#999999"]
+    // const region_cols = [paired[0], paired[2], paired[6], paired[8], paired[4], "#999999", paired[1], paired[3], paired[5]]
 
     graph.graph.color_scale = d3.scaleOrdinal(region_cols)
 
