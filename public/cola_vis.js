@@ -71,7 +71,6 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         }
     }
     graph.nodes.forEach(n => n.display = true)
-    graph.nodes.forEach(n => n.coverage = _.zip(...n.coverage))
     graph.nodes.forEach(n => n.n_kmers = n.coverage[0].length)
     graph.nodes.forEach(n => n.max_coverage = _.reduce(
         n.coverage,
