@@ -9,7 +9,7 @@ $(`#scale-node-area-by-${scale_node_by_area}`).prop('checked', true)
 
 const width = $(window).width() - 20,
     height = $(window).height() - 20,
-    svg_width = width * 4,
+    svg_width = width * 1.5,
     svg_height = height * 2
 
 const d3cola = cola.d3adaptor(d3)
@@ -40,7 +40,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
 
     // pair some colors
     const paired = d3.schemePaired
-    const region_cols = [paired[0], paired[2], paired[6], paired[8], paired[4], "#999999", paired[1], paired[3], paired[5]]
+    const region_cols = ['#555555', "#999999"].concat(d3.schemeCategory10)
 
     graph.graph.color_scale = d3.scaleOrdinal(region_cols)
 
@@ -116,7 +116,7 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         .links(graph.edges)
         .flowLayout("x", l => l.source.radius + l.target.radius + 25)
         .constraints(constraints)
-        .jaccardLinkLengths(160)
+        .jaccardLinkLengths(190)
         .start(20, 20, 20)
 
 
@@ -158,7 +158,12 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
     const inner_node_text = node_container
         .append('text')
         .attr('class', 'inner-node-text')
-        // .text(n => n.n_kmers)
+        .text(n => {
+            if (n.n_kmers > 9)
+                return n.n_kmers
+            else
+                return ''
+        })
 
     const node_circle = node_container
         .append("circle")
@@ -193,8 +198,6 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
         inner_node_circle
             .attr('r', new_radius)
             .attr('stroke', new_stroke)
-
-
     }
 
     $('#line-graphs-off').click(() => toggle_line_graphs(false))
