@@ -40,7 +40,9 @@ d3.json(`graph.json?${Math.floor(Math.random() * 1000)}`, function (error, graph
 
     // pair some colors
     const paired = d3.schemePaired
-    const region_cols = ['#555555', "#999999"].concat(d3.schemeCategory10)
+    const region_cols = ['#555555', "#999999"]
+        .concat(d3.schemeCategory10.slice(0,7))
+        .concat(d3.schemeCategory10.slice(8,10))
 
     graph.graph.color_scale = d3.scaleOrdinal(region_cols)
 
